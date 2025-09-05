@@ -41,9 +41,17 @@
                 // 메시지 표시 후 세션에서 제거 (한 번만 표시되도록)
                 session.removeAttribute("successMsg");
         %>
-        <div style="background-color: #d4edda; color: #155724; padding: 15px; border: 1px solid #c3e6cb; margin: 20px; text-align: center;">
+        <div id="successMessage" style="background-color: #d4edda; color: #155724; padding: 15px; border: 1px solid #c3e6cb; margin: 20px; text-align: center;">
             <%= successMsg %>
         </div>
+        <script>
+            setTimeout(function() {
+                var msg = document.getElementById('successMessage');
+                if(msg) {
+                    msg.style.display = 'none';
+                }
+            }, 2000);
+        </script>
         <%
             }
         %>
