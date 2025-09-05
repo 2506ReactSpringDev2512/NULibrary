@@ -112,7 +112,8 @@
         <div class="header">
             <div class="logo">도서관 로고</div>
             <div class="nav-menu">
-                <div>홈으로</div>
+            <!-- 클릭시 메인홈으로 이동하도록 수정  -->
+                <div onclick="location.href='/'">홈으로</div>
             </div>
         </div>
         
