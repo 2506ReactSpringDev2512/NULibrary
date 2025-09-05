@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.library.model.vo.MemberVO" %>
+<%
+    // 로그인 정보 확인
+    String loginUser = (String)session.getAttribute("loginUser");
+    MemberVO loginMember = (MemberVO)session.getAttribute("loginUserVO");
+    
+    if(loginUser == null || loginMember == null) {
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -124,7 +135,7 @@
         <div class="header">
             <div class="logo">도서관 로고</div>
             <div class="user-info">
-                <div>남윤우님</div>
+                <div><%=loginUser%>님</div>
                 <div>로그아웃</div>
             </div>
         </div>
@@ -132,46 +143,67 @@
         <div class="main-content">
             <div class="page-title">개인정보 수정</div>
             
+            <!-- 에러 메시지 표시 -->
+            <%
+                String errorMsg = (String)session.getAttribute("errorMsg");
+                if(errorMsg != null) {
+                    session.removeAttribute("errorMsg");
+            %>
+            <div id="errorMessage" style="background-color: #f8d7da; color: #721c24; padding: 15px; border: 1px solid #f5c6cb; margin: 20px 0; text-align: center;">
+                <%= errorMsg %>
+            </div>
+            <script>
+                setTimeout(function() {
+                    var msg = document.getElementById('errorMessage');
+                    if(msg) {
+                        msg.style.display = 'none';
+                    }
+                }, 2000);
+            </script>
+            <%
+                }
+            %>
+            
             <div class="form-container">
-                <form>
+                <form action="<%= request.getContextPath() %>/member/update" method="post">
                     <div class="form-group">
                         <label>아이디</label>
-                        <input type="text" value="nam123" class="readonly" readonly>
+                        <input type="text" value="<%=loginMember.getMemberId()%>" class="readonly" readonly>
                     </div>
                     
                     <div class="form-group">
                         <label>현재 비밀번호</label>
-                        <input type="password" placeholder="현재 비밀번호를 입력하세요">
+                        <input type="password" name="currentPassword" placeholder="현재 비밀번호를 입력하세요" required>
                     </div>
                     
                     <div class="form-group">
                         <label>새 비밀번호</label>
-                        <input type="password" placeholder="새 비밀번호를 입력하세요">
+                        <input type="password" name="newPassword" placeholder="새 비밀번호를 입력하세요 (변경하지 않으려면 비워두세요)">
                     </div>
                     
                     <div class="form-group">
                         <label>비밀번호 확인</label>
-                        <input type="password" placeholder="새 비밀번호를 다시 입력하세요">
+                        <input type="password" name="confirmPassword" placeholder="새 비밀번호를 다시 입력하세요">
                     </div>
                     
                     <div class="form-group">
                         <label>이름</label>
-                        <input type="text" value="남윤우">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>이메일</label>
-                        <input type="email" value="dbsdn@email.com">
+                        <input type="text" name="memberName" value="<%=loginMember.getMemberName()%>">
                     </div>
                     
                     <div class="form-group">
                         <label>전화번호</label>
-                        <input type="tel" value="010-1234-5678">
+                        <input type="tel" name="memberPhone" value="<%=loginMember.getMemberPhone()%>">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>나이</label>
+                        <input type="number" name="memberAge" value="<%=loginMember.getMemberAge()%>">
                     </div>
                     
                     <div class="button-group">
                         <button type="submit" class="btn">수정 완료</button>
-                        <button type="button" class="btn">취소</button>
+                        <button type="button" class="btn" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">취소</button>
                     </div>
                 </form>
             </div>

@@ -99,7 +99,7 @@
                 <!-- 로그인 후 사용자 메뉴 -->
                 <div class="login-section">
                     <div class="sidebar-title"><%=loginUser%>님 환영합니다</div>
-                    <div class="menu-item" onclick="location.href='member/mypage.jsp'">개인정보 수정</div>
+                    <div class="menu-item" onclick="location.href='member/update'">개인정보 수정</div>
                     <div class="menu-item" onclick="location.href='member/myRentals.jsp'">내 대여현황</div>
                     <div class="menu-item" onclick="location.href='member/logout'">로그아웃</div>
                 </div>
