@@ -116,7 +116,8 @@
                 <div class="message-text">
                     회원가입이 완료되었습니다.
                 </div>
-                <button class="btn" onclick="location.href='/'">메인으로 이동하기</button>
+                <!-- 페이지 상단에 홈버튼이 있어 로그인 페이지로 이동하도록 버튼 수정 -->
+                <button class="btn" onclick="location.href='/member/login'">로그인 페이지로 이동하기</button>
             </div>
         </div>
         

@@ -81,6 +81,23 @@
             border: 2px solid #666;
             font-size: 14px;
         }
+
+        /* 성별 라디오 전용 스타일 */
+        .form-group.gender .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 8px;
+        }
+       
+        .form-group.gender .radio-group label {
+            display: flex;
+            align-items: left;
+            text-align: left;
+            gap : 0px;
+            border: none;
+            font-weight: normal;
+            width : 50%;
+        }
         
         .button-group {
             text-align: center;
@@ -126,7 +143,7 @@
                         <input type="text" name="memberId" placeholder="아이디를 입력하세요">
                     </div>
                     
-                   <div class="form-group">
+                    <div class="form-group">
 					    <label>비밀번호</label>
 					    <input type="password" name="memberPw" placeholder="비밀번호를 입력하세요">
 					</div>
@@ -138,22 +155,24 @@
                     
                     <div class="form-group">
                         <label>이름</label>
-                        <input type="text" name = "memberName" placeholder="이름을 입력하세요">
+                        <input type="text" name="memberName" placeholder="이름을 입력하세요">
                     </div>
                     
-                    <div class="form-group">
+                    <div class="form-group gender">
                         <label>성별</label>
-                        <label>
-       					 	<input type="radio" name="memberGender" value="M" checked> 남성
-					    </label>
-					    <label>
-       					 	<input type="radio" name="memberGender" value="F"> 여성
- 						</label>
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" name="memberGender" value="M" checked> 남
+                            </label>
+                            <label>
+                                <input type="radio" name="memberGender" value="F"> 여
+                            </label>
+                        </div>
                     </div>
                     
                     <div class="form-group">
                         <label>전화번호</label>
-                        <input type="tel" name="memberPhone" placeholder="전화번호를 입력하세요">
+                        <input type="tel" name="memberPhone" placeholder="전화번호를 입력하세요 ( - 제외 )">
                     </div>
                     
                     <div class="form-group">
@@ -161,15 +180,6 @@
    				 		<input type="number" name="memberAge" placeholder="나이를 입력하세요">
 					</div>
                     
-                    <div class="form-group">
-                        <label>관리자 설정</label>
-                        <label>
-       					 	<input type="radio" name="adminYn" value="Y" checked> 관리자
-					    </label>
-					    <label>
-       					 	<input type="radio" name="adminYn" value="N"> 일반 회원
- 						</label>
-                    </div>
                     
                     <div class="button-group">
                         <button type="submit" class="btn">회원가입</button>
