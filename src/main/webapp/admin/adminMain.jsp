@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+    // 관리자 로그인 정보 가져오기 (서블릿에서 이미 체크했음)
+    String loginAdmin = (String)session.getAttribute("loginAdmin");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -28,8 +32,8 @@
         <div class="header">
             <div class="logo">관리자 시스템</div>
             <div class="admin-info">
-                <div>관리자님</div>
-                <div>로그아웃</div>
+                <div><%=loginAdmin%>관리자님</div>
+                <div onclick="location.href='<%= request.getContextPath() %>/member/logout'">로그아웃</div>
             </div>
         </div>
         

@@ -115,17 +115,38 @@
                 ⚠️ 관리자 전용 페이지입니다
             </div>
             
-            <form class="login-form">
+            <!-- 에러 메시지 표시 -->
+            <%
+                String errorMsg = (String)session.getAttribute("errorMsg");
+                if(errorMsg != null) {
+                    session.removeAttribute("errorMsg");
+            %>
+            <div id="errorMessage" style="background-color: #f8d7da; color: #721c24; padding: 15px; border: 1px solid #f5c6cb; margin: 20px 0; text-align: center;">
+                <%= errorMsg %>
+            </div>
+            <script>
+                setTimeout(function() {
+                    var msg = document.getElementById('errorMessage');
+                    if(msg) {
+                        msg.style.display = 'none';
+                    }
+                }, 2000);
+            </script>
+            <%
+                }
+            %>
+            
+            <form class="login-form" action="<%= request.getContextPath() %>/admin/login" method="post">
                 <div class="input-group">
-                    <input type="text" placeholder="관리자 아이디" required>
+                    <input type="text" name="adminId" placeholder="관리자 아이디" required>
                 </div>
                 <div class="input-group">
-                    <input type="password" placeholder="관리자 비밀번호" required>
+                    <input type="password" name="adminPassword" placeholder="관리자 비밀번호" required>
                 </div>
                 <button type="submit" class="login-btn">관리자 로그인</button>
             </form>
             
-            <a href="#" class="back-link">회원 로그인 페이지로 돌아가기</a>
+            <a href="<%= request.getContextPath() %>/index.jsp" class="back-link">메인 페이지로 돌아가기</a>
         </div>
     </div>
     
