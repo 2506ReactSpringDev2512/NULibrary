@@ -247,7 +247,7 @@
                 
                 <!-- 공지사항 위젯 -->
                 <div class="widget">
-                    <div class="widget-title">공지사항</div>
+                    <div class="widget-title" onclick="location.href='notice/noticeList.jsp'">공지사항</div>
                     <div class="notice-item" onclick="location.href='notice/noticeDetail.jsp?noticeId=1'">
                         <span class="notice-title">도서관 휴관 안내</span>
                         <span class="notice-date">09-02</span>
