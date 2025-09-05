@@ -53,7 +53,6 @@
                             <th>전화번호</th>
                             <th>성별</th>
                             <th>나이</th>
-                            <th>관리</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -71,10 +70,6 @@
 	                            <td>${member.memberPhone }</td>
 	                            <td>${member.memberGender }</td>
 	                            <td>${member.memberAge }</td>
-	                            <td>
-	                                <button class="action-btn">수정</button>
-	                                <button class="action-btn">삭제</button>
-	                            </td>
 	                        </tr>
                         </c:forEach>
                     </tbody>
