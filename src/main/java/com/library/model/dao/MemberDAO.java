@@ -164,9 +164,10 @@ public class MemberDAO {
         int result = 0;
         PreparedStatement pstmt = null;
         
-        String sql = "INSERT INTO MEMBER_TBL " +
-                "(MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_GENDER) " +
-                "VALUES (?, ?, ?, ?, ?, ?, DEFAULT)";
+        String sql = "UPDATE MEMBER_TBL SET " +
+                    "MEMBER_PW = ?, MEMBER_NAME = ?, MEMBER_PHONE = ?, " +
+                    "MEMBER_GENDER = ?, MEMBER_AGE = ? " +
+                    "WHERE MEMBER_ID = ?";
         
         try {
             pstmt = conn.prepareStatement(sql);
