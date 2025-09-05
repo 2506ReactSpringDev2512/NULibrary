@@ -1,4 +1,4 @@
-package com.library.controller.member;
+package com.library.controller.admin;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
