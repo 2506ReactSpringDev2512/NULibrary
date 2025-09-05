@@ -1,6 +1,7 @@
 package com.library.model.service;
 
 import java.sql.Connection;
+import java.util.List;
 
 import com.library.common.JDBCTemplate;
 import com.library.model.dao.MemberDAO;
@@ -71,5 +72,13 @@ public class MemberService {
         MemberVO member = memberDAO.selectMemberById(conn, memberId);
         JDBCTemplate.close(conn);
         return member;
+    }
+    //memberList 출력
+    public List<MemberVO> selectList(){
+    	List<MemberVO> memberList = null;
+    	Connection conn = JDBCTemplate.getConnection();
+    	memberList = memberDAO.selectAllMembers(conn);
+    	return memberList;
+    	
     }
 }
