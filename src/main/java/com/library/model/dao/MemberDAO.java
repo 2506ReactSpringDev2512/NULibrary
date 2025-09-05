@@ -164,10 +164,9 @@ public class MemberDAO {
         int result = 0;
         PreparedStatement pstmt = null;
         
-        String sql = "UPDATE MEMBER_TBL SET " +
-                    "MEMBER_PW = ?, MEMBER_NAME = ?, MEMBER_PHONE = ?, " +
-                    "MEMBER_GENDER = ?, MEMBER_AGE = ? " +
-                    "WHERE MEMBER_ID = ?";
+        String sql = "INSERT INTO MEMBER_TBL " +
+                "(MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_GENDER, MEMBER_AGE, MEMBER_GENDER) " +
+                "VALUES (?, ?, ?, ?, ?, ?, DEFAULT)";
         
         try {
             pstmt = conn.prepareStatement(sql);
@@ -238,10 +237,12 @@ public class MemberDAO {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         
+       // 쿼리문을 관리자 제외하고 출력할 수 있도록 수정
         String sql = "SELECT MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, " +
-                    "MEMBER_GENDER, MEMBER_AGE, ADMIN_YN " +
-                    "FROM MEMBER_TBL " +
-                    "ORDER BY MEMBER_ID";
+                "MEMBER_GENDER, MEMBER_AGE, ADMIN_YN " +
+                "FROM MEMBER_TBL " +
+                "WHERE ADMIN_YN <> 'Y' " +   // 관리자 제외
+                "ORDER BY MEMBER_ID";
         
         try {
             pstmt = conn.prepareStatement(sql);
