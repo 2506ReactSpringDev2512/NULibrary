@@ -1,0 +1,107 @@
+package com.library.model.dao;
+
+import java.sql.*;
+import java.util.*;
+import com.library.common.JDBCTemplate;
+import com.library.model.vo.BookVO;
+
+public class BookDAO {
+    private static BookDAO instance = new BookDAO();
+    private BookDAO() {}
+    public static BookDAO getInstance() { return instance; }
+
+    // 전체 도서 조회
+    public List<BookVO> selectAllBooks(Connection conn) {
+        List<BookVO> bookList = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        
+        //쿼리문
+        String sql = "SELECT BOOK_NO, BOOK_NAME, BOOK_AUTHOR, BOOK_PUBLISHER, LEND_YN FROM BOOK_TBL ORDER BY BOOK_NO";
+        try {
+        		pstmt = conn.prepareStatement(sql);
+        		rs = pstmt.executeQuery(); 
+        			
+            while (rs.next()) {
+                BookVO book = new BookVO();
+                
+                book.setBookNo(rs.getString("BOOK_NO"));
+                book.setBookName(rs.getString("BOOK_NAME"));
+                book.setBookAuthor(rs.getString("BOOK_AUTHOR"));
+                book.setBookPublisher(rs.getString("BOOK_PUBLISHER"));
+                book.setLendYn(rs.getString("LEND_YN"));
+                
+                bookList.add(book);
+            }
+            System.out.println("✅ 전체 도서 조회 성공: " + bookList.size() + "권");
+        } catch (SQLException e) {
+        	System.err.println("도서 목록 조회 쿼리 실행 중 오류: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+        	JDBCTemplate.close(rs);
+        	JDBCTemplate.close(pstmt);
+        }
+        return bookList;
+}
+
+    // 인기 도서 조회
+    public List<BookVO> selectPopularBooks(Connection conn) {
+        List<BookVO> booklist = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        
+        String sql = "SELECT BOOK_NO, BOOK_NAME, BOOK_AUTHOR FROM BOOK_TBL WHERE IS_POPULAR = 'Y' ORDER BY BOOK_NO";
+        try {
+        	pstmt = conn.prepareStatement(sql);
+        	rs = pstmt.executeQuery();  
+        	while (rs.next()) {
+                BookVO book = new BookVO();
+                
+                book.setBookNo(rs.getString("BOOK_NO")); 
+                book.setBookName(rs.getString("BOOK_NAME"));
+                book.setBookAuthor(rs.getString("BOOK_AUTHOR"));
+                
+                booklist.add(book);
+            }
+            System.out.println("✅ 인기 도서 조회 완료: " + booklist.size() + "권");
+        } catch (SQLException e) {
+        	System.err.println("인기 도서 목록 조회 쿼리 실행 중 오류: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+           JDBCTemplate.close(rs);
+           JDBCTemplate.close(pstmt);
+        }
+
+        return booklist;
+    }
+
+    // 신간 도서 조회
+    public List<BookVO> selectNewBooks(Connection conn) {
+        List<BookVO> booklist = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT BOOK_NO, BOOK_NAME, BOOK_AUTHOR FROM BOOK_TBL WHERE IS_NEW = 'Y' ORDER BY BOOK_NO";
+        try {
+        		pstmt = conn.prepareStatement(sql);
+        		rs = pstmt.executeQuery(); 
+        		
+        	while (rs.next()) {
+        	    BookVO book = new BookVO();
+        	    
+        	    book.setBookNo(rs.getString("BOOK_NO"));
+        	    book.setBookName(rs.getString("BOOK_NAME"));
+        	    book.setBookAuthor(rs.getString("BOOK_AUTHOR"));
+        	    
+        	    booklist.add(book);
+        	}
+            System.out.println("✅ 신간 도서 조회 성공: " + booklist.size() + "권");
+        } catch (SQLException e) {
+        	System.err.println("신간 도서 목록 조회 쿼리 실행 중 오류: " + e.getMessage());
+            e.printStackTrace();
+        }finally {
+        	JDBCTemplate.close(rs);
+        	JDBCTemplate.close(pstmt);
+        }
+        return booklist;
+    }
+}
