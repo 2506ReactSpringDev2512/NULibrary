@@ -1,4 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="com.library.model.service.NoticeService" %>
+<%@ page import="com.library.model.vo.NoticeVO" %>
+<%@ page import="java.util.List" %>
+<%
+    // 최근 공지사항 조회
+    NoticeService noticeService = new NoticeService();
+    List<NoticeVO> recentNotices = noticeService.getRecentNotices(4);
+    request.setAttribute("recentNotices", recentNotices);
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,7 +30,7 @@
                     if(loginUser != null) {
                 %>
                     <!-- 로그인 상태 -->
-                    <div onclick="location.href='member/mypage'"><%=loginUser%>님</div>
+                    <div onclick="location.href='member/update'"><%=loginUser%>님</div>
                     <div onclick="location.href='member/myRentals.jsp'">내 대여현황</div>
                     <div onclick="location.href='member/logout'">로그아웃</div>
                 <%
@@ -245,39 +256,32 @@
                     </div>
                 </div>
                 
-                <!-- 공지사항 위젯 -->
+                <!-- 공지사항 위젯 (DB 연동) -->
                 <div class="widget">
-                    <div class="widget-title" onclick="location.href='notice/noticeList.jsp'">공지사항</div>
-                    <div class="notice-item" onclick="location.href='notice/noticeDetail.jsp?noticeId=1'">
-                        <span class="notice-title">도서관 휴관 안내</span>
-                        <span class="notice-date">09-02</span>
-                    </div>
-                    <div class="notice-item" onclick="location.href='notice/noticeDetail.jsp?noticeId=2'">
-                        <span class="notice-title">신간 도서 입고 안내</span>
-                        <span class="notice-date">09-01</span>
-                    </div>
-                    <div class="notice-item" onclick="location.href='notice/noticeDetail.jsp?noticeId=3'">
-                        <span class="notice-title">대여 규정 변경 사항</span>
-                        <span class="notice-date">08-30</span>
-                    </div>
-                    <div class="notice-item" onclick="location.href='notice/noticeDetail.jsp?noticeId=4'">
-                        <span class="notice-title">시설 보수 공사 안내</span>
-                        <span class="notice-date">08-28</span>
-                    </div>
+    <div class="widget-title" onclick="location.href='notice/list'">공지사항</div>
+    <c:choose>
+        <c:when test="${not empty recentNotices}">
+            <c:forEach items="${recentNotices}" var="notice">
+                <div class="notice-item" onclick="location.href='notice/detail?noticeNo=${notice.noticeNo}'">
+                    <span class="notice-title">
+                        <c:choose>
+                            <c:when test="${fn:length(notice.noticeSubject) > 15}">
+                                ${fn:substring(notice.noticeSubject, 0, 15)}...
+                            </c:when>
+                            <c:otherwise>
+                                ${notice.noticeSubject}
+                            </c:otherwise>
+                        </c:choose>
+                    </span>
+                    <span class="notice-date">${notice.shortDate}</span>
                 </div>
+            </c:forEach>
+        </c:when>
+        <c:otherwise>
+            <div class="notice-item">
+                <span class="notice-title">등록된 공지사항이 없습니다</span>
+                <span class="notice-date">--</span>
             </div>
-        </div>
-        
-        <!-- 푸터 -->
-        <div class="footer">
-            <div>도서관 정보 | 이용약관 | 개인정보처리방침 | 문의사항</div>
-        </div>
-    </div>
-
-    <script>
-        function searchByCategory(category) {
-            location.href = 'book/search?searchType=category&keyword=' + encodeURIComponent(category);
-        }
-    </script>
-</body>
-</html>
+        </c:otherwise>
+    </c:choose>
+</div>
