@@ -103,7 +103,7 @@
         <!-- 헤더 -->
         <div class="header">
             <div class="logo" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">
-                <img src="<%= request.getContextPath() %>/image/logo.png" alt="도서관 로고" style="height: 60px; witdh:200px; border: none; outline: none;">
+                <img src="<%= request.getContextPath() %>/image/logo.png" alt="도서관 로고" style="height: 60px; width:200px; border: none; outline: none;">
             </div>
             <div class="nav-menu">
                 <div>홈으로</div>

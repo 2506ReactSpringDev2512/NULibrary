@@ -37,7 +37,7 @@
     <div class="container">
         <div class="header">
             <div class="logo" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">
-                <img src="<%= request.getContextPath() %>/image/logo.png" alt="도서관 로고" style="height: 60px; witdh:200px; border: none; outline: none;">
+                <img src="<%= request.getContextPath() %>/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
             </div>
             <div class="nav-menu">
                 <div onclick="location.href='<%= request.getContextPath() %>/notice/list'">공지사항 목록</div>
