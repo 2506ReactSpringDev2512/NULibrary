@@ -34,6 +34,7 @@
             <div class="sidebar">
                 <div class="menu-item">대시보드</div>
                 <div class="menu-item" style="background:#f0f0f0;">회원 정보 조회</div>
+                <div class="menu-item" onclick="location.href='<%= request.getContextPath() %>/admin/notice'">공지사항 관리</div>
                 <div class="menu-item">도서 관리</div>
                 <div class="menu-item">대여 관리</div>
             </div>
