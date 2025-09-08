@@ -24,10 +24,10 @@ body {
     justify-content: space-between;
     align-items: center;
     background-color: #fff;
+    height: 70px;
 }
 
 .logo {
-    border: 1px solid #666;
     padding: 10px 20px;
     font-weight: bold;
     cursor: pointer;

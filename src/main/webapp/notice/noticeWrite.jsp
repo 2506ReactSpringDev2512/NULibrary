@@ -12,7 +12,7 @@
         body { font-family: Arial, sans-serif; background-color: #f5f5f5; }
         .container { max-width: 800px; margin: 0 auto; background-color: white; }
         .header { border: 2px solid #333; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { border: 1px solid #666; padding: 10px 20px; font-weight: bold; cursor: pointer; }
+        .logo { padding: 10px 20px; font-weight: bold; cursor: pointer; }
         .nav-menu div { border: 1px solid #666; padding: 8px 15px; cursor: pointer; margin-left: 10px; }
         .nav-menu { display: flex; }
         .main-content { padding: 30px; }
@@ -36,7 +36,9 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">도서관 로고</div>
+            <div class="logo" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">
+                <img src="<%= request.getContextPath() %>/image/logo.png" alt="도서관 로고" style="height: 60px; witdh:200px; border: none; outline: none;">
+            </div>
             <div class="nav-menu">
                 <div onclick="location.href='<%= request.getContextPath() %>/notice/list'">공지사항 목록</div>
                 <div onclick="location.href='<%= request.getContextPath() %>/index.jsp'">홈으로</div>

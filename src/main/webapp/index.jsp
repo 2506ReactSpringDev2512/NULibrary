@@ -22,7 +22,9 @@
     <div class="container">
         <!-- 헤더 -->
         <div class="header">
-            <div class="logo" onclick="location.href='index.jsp'">도서관 로고</div>
+            <div class="logo" onclick="location.href='index.jsp'">
+                <img src="<%= request.getContextPath() %>/image/logo.png" alt="도서관 로고" style="height: 60px; witdh:200px; border: none; outline: none;">
+            </div>
             <div class="user-menu">
                 <%
                     // 세션에서 로그인 정보 확인
