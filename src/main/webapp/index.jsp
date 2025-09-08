@@ -244,15 +244,15 @@
                         <span class="notice-title">도서관 휴관 안내</span>
                         <span class="notice-date">09-02</span>
                     </div>
-                    <div class="notice-item" onclick="location.href='notice/noticeDetail.jsp?noticeId=2'">
+                    <div class="notice-item" onclick="location.href='notice/noticeDetailNewBook.jsp?noticeId=2'">
                         <span class="notice-title">신간 도서 입고 안내</span>
                         <span class="notice-date">09-01</span>
                     </div>
-                    <div class="notice-item" onclick="location.href='notice/noticeDetail.jsp?noticeId=3'">
+                    <div class="notice-item" onclick="location.href='notice/noticeDetailRental.jsp?noticeId=3'">
                         <span class="notice-title">대여 규정 변경 사항</span>
                         <span class="notice-date">08-30</span>
                     </div>
-                    <div class="notice-item" onclick="location.href='notice/noticeDetail.jsp?noticeId=4'">
+                    <div class="notice-item" onclick="location.href='notice/noticeDetailRepair.jsp?noticeId=4'">
                         <span class="notice-title">시설 보수 공사 안내</span>
                         <span class="notice-date">08-28</span>
                     </div>
