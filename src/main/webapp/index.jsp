@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>도서관 메인페이지</title>
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/styles.css">
 </head>
 <body>
     <div class="container">
@@ -20,7 +20,7 @@
                 %>
                     <!-- 로그인 상태 -->
                     <div onclick="location.href='member/mypage'"><%=loginUser%>님</div>
-                    <div onclick="location.href='member/rentals'">내 대여현황</div>
+                    <div onclick="location.href='member/myRentals.jsp'">내 대여현황</div>
                     <div onclick="location.href='member/logout'">로그아웃</div>
                 <%
                     } else {
