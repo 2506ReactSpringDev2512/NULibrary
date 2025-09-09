@@ -205,4 +205,27 @@ public class BookDAO {
         }
         return bookList;
     }
+
+    // 도서 소개 수정
+    public int updateBookDescription(Connection conn, String bookNo, String description) {
+        int result = 0;
+        PreparedStatement pstmt = null;
+        
+        String sql = "UPDATE BOOK_TBL SET BOOK_DESCRIPTION = ? WHERE BOOK_NO = ?";
+        
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, description);
+            pstmt.setString(2, bookNo);
+            
+            result = pstmt.executeUpdate();
+            System.out.println("✅ 도서 소개 수정 성공: " + bookNo);
+        } catch (SQLException e) {
+            System.err.println("도서 소개 수정 쿼리 실행 중 오류: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            JDBCTemplate.close(pstmt);
+        }
+        return result;
+    }
 }
