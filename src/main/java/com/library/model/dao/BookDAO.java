@@ -156,42 +156,27 @@ public class BookDAO {
     }
 
     // 도서 검색
-    public List<BookVO> searchBooks(Connection conn, String keyword, String searchType) {
+    public List<BookVO> searchBooks(Connection conn, String keyword) {
         List<BookVO> bookList = new ArrayList<>();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         
-        StringBuilder sql = new StringBuilder();
-        sql.append("SELECT BOOK_NO, BOOK_NAME, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_CATEGORY, LEND_YN, IS_POPULAR, IS_NEW ");
-        sql.append("FROM BOOK_TBL WHERE ");
-        
-        switch (searchType) {
-            case "title":
-                sql.append("BOOK_NAME LIKE ?");
-                break;
-            case "author":
-                sql.append("BOOK_AUTHOR LIKE ?");
-                break;
-            case "publisher":
-                sql.append("BOOK_PUBLISHER LIKE ?");
-                break;
-            default: // "all"
-                sql.append("(BOOK_NAME LIKE ? OR BOOK_AUTHOR LIKE ? OR BOOK_PUBLISHER LIKE ?)");
-                break;
-        }
-        sql.append(" ORDER BY BOOK_NO");
+        // 통합검색 쿼리 (도서명, 저자, 출판사, 도서소개에서 모두 검색)
+        String sql = "SELECT BOOK_NO, BOOK_NAME, BOOK_AUTHOR, BOOK_PUBLISHER, " +
+                    "BOOK_CATEGORY, LEND_YN, IS_POPULAR, IS_NEW, BOOK_DESCRIPTION " +
+                    "FROM BOOK_TBL " +
+                    "WHERE BOOK_NAME LIKE ? OR BOOK_AUTHOR LIKE ? OR BOOK_PUBLISHER LIKE ? OR BOOK_DESCRIPTION LIKE ? " +
+                    "ORDER BY BOOK_NO";
         
         try {
-            pstmt = conn.prepareStatement(sql.toString());
+            pstmt = conn.prepareStatement(sql);
             String searchKeyword = "%" + keyword + "%";
             
-            if ("all".equals(searchType)) {
-                pstmt.setString(1, searchKeyword);
-                pstmt.setString(2, searchKeyword);
-                pstmt.setString(3, searchKeyword);
-            } else {
-                pstmt.setString(1, searchKeyword);
-            }
+            // 4개 파라미터 모두 같은 키워드로 설정
+            pstmt.setString(1, searchKeyword); // BOOK_NAME
+            pstmt.setString(2, searchKeyword); // BOOK_AUTHOR  
+            pstmt.setString(3, searchKeyword); // BOOK_PUBLISHER
+            pstmt.setString(4, searchKeyword); // BOOK_DESCRIPTION
             
             rs = pstmt.executeQuery();
             
@@ -206,10 +191,11 @@ public class BookDAO {
                 book.setLendYn(rs.getString("LEND_YN"));
                 book.setIsPopular(rs.getString("IS_POPULAR").charAt(0));
                 book.setIsNew(rs.getString("IS_NEW").charAt(0));
+                book.setBookDescription(rs.getString("BOOK_DESCRIPTION")); // 새 컬럼 추가
                 
                 bookList.add(book);
             }
-            System.out.println("✅ 도서 검색 성공 (" + keyword + ", " + searchType + "): " + bookList.size() + "권");
+            System.out.println("✅ 통합 검색 완료 (" + keyword + "): " + bookList.size() + "권");
         } catch (SQLException e) {
             System.err.println("도서 검색 쿼리 실행 중 오류: " + e.getMessage());
             e.printStackTrace();

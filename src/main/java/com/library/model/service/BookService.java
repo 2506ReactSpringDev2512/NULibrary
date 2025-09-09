@@ -45,11 +45,11 @@ public class BookService {
         return bookList;
     }
 
-    // 도서 검색
+    // 도서 검색 (통합검색)
     public List<BookVO> searchBooks(String keyword, String searchType) {
         List<BookVO> bookList = null;
         Connection conn = JDBCTemplate.getConnection();
-        bookList = bookDAO.searchBooks(conn, keyword, searchType);
+        bookList = bookDAO.searchBooks(conn, keyword);
         JDBCTemplate.close(conn);
         return bookList;
     }

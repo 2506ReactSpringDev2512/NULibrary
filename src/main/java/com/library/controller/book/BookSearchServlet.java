@@ -19,27 +19,31 @@ public class BookSearchServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String keyword = request.getParameter("keyword");
-        String searchType = request.getParameter("searchType");
         
+        // 검색어가 없으면 에러 처리
         if (keyword == null || keyword.trim().isEmpty()) {
             request.setAttribute("errorMsg", "검색어를 입력해주세요.");
             request.getRequestDispatcher("/book/bookSearch.jsp").forward(request, response);
             return;
         }
         
+        // 검색어 정리
         keyword = keyword.trim();
-        if (searchType == null || searchType.trim().isEmpty()) {
-            searchType = "all";
-        }
         
+        // 통합검색으로 고정 (searchType 파라미터 제거)
+        String searchType = "all";
+        
+        // 검색 서비스 호출
         BookService bService = new BookService();
         List<BookVO> searchResults = bService.searchBooks(keyword, searchType);
         
+        // 결과를 request에 저장
         request.setAttribute("searchResults", searchResults);
         request.setAttribute("keyword", keyword);
         request.setAttribute("searchType", searchType);
         request.setAttribute("resultCount", searchResults.size());
         
+        // 검색 결과 페이지로 포워드
         request.getRequestDispatcher("/book/bookSearch.jsp").forward(request, response);
     }
     
