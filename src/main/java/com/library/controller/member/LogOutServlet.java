@@ -41,7 +41,7 @@ public class LogOutServlet extends HttpServlet {
 			}
 		}
 		
-		response.sendRedirect(request.getContextPath() + "/index.jsp");
+		response.sendRedirect(request.getContextPath() + "/main");
 	}
 
 	/**
