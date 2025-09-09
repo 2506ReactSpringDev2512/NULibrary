@@ -64,13 +64,7 @@
             <form action="book/search" method="get">
                 <div class="search-box">
                     <input type="text" name="keyword" class="search-input" placeholder="도서명, 저자, 출판사를 입력하세요">
-                    <button type="submit" class="search-btn">검색</button>
-                </div>
-                <div class="search-options">
-                    <div><input type="radio" name="searchType" value="all" checked> 전체</div>
-                    <div><input type="radio" name="searchType" value="title"> 도서명</div>
-                    <div><input type="radio" name="searchType" value="author"> 저자</div>
-                    <div><input type="radio" name="searchType" value="publisher"> 출판사</div>
+                    <button type="submit" class="search-btn">통합검색</button>
                 </div>
             </form>
         </div>
@@ -125,7 +119,7 @@
                 <div class="book-grid">
                     <c:forEach var="book" items="${bookPopularList}" varStatus="status">
                         <c:if test="${status.index < 8}">
-                            <div class="book-item">
+                            <div class="book-item" onclick="location.href='${pageContext.request.contextPath}/book/detail?bookNo=${book.bookNo}'" style="cursor:pointer;">
                                 <div class="book-image">
                                     <img src="${pageContext.request.contextPath}/image/book/popular/${book.bookNo}.jpg" alt="이미지">
                                 </div>
@@ -145,7 +139,7 @@
                     <div class="book-grid">
                         <c:forEach var="book" items="${bookNewList}" varStatus="status">
                             <c:if test="${status.index < 8}">
-                                <div class="book-item">
+                                <div class="book-item" onclick="location.href='${pageContext.request.contextPath}/book/detail?bookNo=${book.bookNo}'" style="cursor:pointer;">
                                     <div class="book-image">
                                         <img src="${pageContext.request.contextPath}/image/book/new/${book.bookNo}.jpg" alt="이미지">
                                     </div>

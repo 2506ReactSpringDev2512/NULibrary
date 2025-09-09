@@ -63,14 +63,22 @@
         }
         
         .book-image {
-            border: 2px solid #666;
+            --border: 2px solid #666;
             width: 200px;
             height: 250px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #f5f5f5;
+            --background-color: #f5f5f5;
             font-weight: bold;
+        }
+        
+        .book-image img {
+        	border: 2px solid #666;
+        	width:100%;
+        	height: 100%;
+        	object-fit:contain;
+        
         }
         
         .book-info {
@@ -196,43 +204,34 @@
             <div class="book-detail-container">
                 <div class="book-header">
                     <div class="book-image">
-                        도서 이미지
+                        <img src="${pageContext.request.contextPath}/image/book/all/${book.bookNo}.jpg" alt="이미지">
                     </div>
-                    
                     <div class="book-info">
-                        <div class="book-title">자바 프로그래밍 완벽 가이드</div>
+                        <div class="book-title">${book.bookName}</div>
                         
                         <table class="info-table">
                             <tr>
                                 <th>저자</th>
-                                <td>김자바</td>
+                                <td>${book.bookAuthor}</td>
                             </tr>
                             <tr>
                                 <th>출판사</th>
-                                <td>자바 출판사</td>
+                                <td>${book.bookPublisher}</td>
                             </tr>
                             <tr>
-                                <th>출간일</th>
-                                <td>2024-01-15</td>
-                            </tr>
-                            <tr>
-                                <th>ISBN</th>
-                                <td>978-1234567890</td>
-                            </tr>
-                            <tr>
-                                <th>페이지</th>
-                                <td>520페이지</td>
+                                <th>도서 번호</th>
+                                <td>${book.bookNo}</td>
                             </tr>
                             <tr>
                                 <th>카테고리</th>
-                                <td>컴퓨터/IT</td>
+                                <td>${book.bookCategory}</td>
                             </tr>
                         </table>
                     </div>
                 </div>
                 
                 <div class="status-section">
-                    <div class="status available">대여 가능</div>
+                    <div class="status available">${book.lendYn }</div>
                     
                     <div class="action-buttons">
                         <button class="btn">대여하기</button>
@@ -243,10 +242,7 @@
                 <div class="description-section">
                     <div class="section-title">도서 소개</div>
                     <div class="description">
-                        자바 프로그래밍의 기초부터 고급 기법까지 체계적으로 학습할 수 있는 완벽 가이드입니다. 
-                        실무에서 바로 활용할 수 있는 예제와 함께 객체지향 프로그래밍의 핵심 개념을 
-                        쉽게 이해할 수 있도록 구성되었습니다. 초보자부터 중급 개발자까지 
-                        모두에게 도움이 되는 필수 도서입니다.
+                        ${book.bookDescription}
                     </div>
                 </div>
             </div>

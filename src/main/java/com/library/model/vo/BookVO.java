@@ -9,6 +9,7 @@ public class BookVO {
     private String lendYn;       // LEND_YN
     private char isPopular;      // IS_POPULAR
     private char isNew;          // IS_NEW
+    private String bookDescription; // BOOK_DESCRIPTION
 
     public BookVO() {}
 
@@ -48,7 +49,10 @@ public class BookVO {
     public char getIsNew() { return isNew; }
     public void setIsNew(char isNew) { this.isNew = isNew; }
 
-    @Override
+    public String getBookDescription() { return bookDescription; }
+    public void setBookDescription(String bookDescription) { this.bookDescription = bookDescription; }
+
+	@Override
     public String toString() {
         return "BookVO [bookNo=" + bookNo + ", bookName=" + bookName +
                ", bookAuthor=" + bookAuthor + ", bookPublisher=" + bookPublisher +
