@@ -30,10 +30,10 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo" onclick="location.href='<%= request.getContextPath() %>/admin/main'">관리자 시스템</div>
+            <div class="logo" onclick="location.href='${pageContext.request.contextPath}/admin/main'">관리자 시스템</div>
             <div class="nav-menu">
-                <div onclick="location.href='<%= request.getContextPath() %>/notice/list'">일반 공지사항</div>
-                <div onclick="location.href='<%= request.getContextPath() %>/admin/main'">관리자 홈</div>
+                <div onclick="location.href='${pageContext.request.contextPath}/notice/list'">일반 공지사항</div>
+                <div onclick="location.href='${pageContext.request.contextPath}/admin/main'">관리자 홈</div>
             </div>
         </div>
         
@@ -42,7 +42,7 @@
             
             <!-- 관리자 메뉴 -->
             <div style="text-align: right; margin-bottom: 20px;">
-                <button onclick="location.href='<%= request.getContextPath() %>/notice/write'" 
+                <button onclick="location.href='${pageContext.request.contextPath}/notice/write'" 
                         style="padding: 10px 20px; border: 2px solid #333; background-color: #333; color: white; cursor: pointer;">
                     공지사항 작성
                 </button>
@@ -80,7 +80,7 @@
                             <c:forEach items="${noticeList}" var="notice">
                                 <tr>
                                     <td>${notice.noticeNo}</td>
-                                    <td class="notice-title" onclick="location.href='<%= request.getContextPath() %>/notice/detail?noticeNo=${notice.noticeNo}'">${notice.noticeSubject}</td>
+                                    <td class="notice-title" onclick="location.href='${pageContext.request.contextPath}/notice/detail?noticeNo=${notice.noticeNo}'">${notice.noticeSubject}</td>
                                     <td>관리자</td>
                                     <td>${notice.formattedDate}</td>
                                     <td>${notice.viewCount}</td>
@@ -111,7 +111,7 @@
     <script>
         function deleteNotice(noticeNo) {
             if (confirm('정말로 이 공지사항을 삭제하시겠습니까?')) {
-                location.href = '<%= request.getContextPath() %>/notice/delete?noticeNo=' + noticeNo;
+                location.href = '${pageContext.request.contextPath}/notice/delete?noticeNo=' + noticeNo;
             }
         }
     </script>

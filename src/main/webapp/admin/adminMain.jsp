@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-    // 관리자 로그인 정보 가져오기 (서블릿에서 이미 체크했음)
-    String loginAdmin = (String)session.getAttribute("loginAdmin");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -32,17 +29,17 @@
         <div class="header">
             <div class="logo">관리자 시스템</div>
             <div class="admin-info">
-                <div><%=loginAdmin%>관리자님</div>
-                <div onclick="location.href='<%= request.getContextPath() %>/member/logout'">로그아웃</div>
+                <div>${loginAdmin}관리자님</div>
+                <div onclick="location.href='${pageContext.request.contextPath}/member/logout'">로그아웃</div>
             </div>
         </div>
         
         <div class="main-content">
             <div class="sidebar">
                 <div class="menu-item">대시보드</div>
-                <div class="menu-item" onclick="location.href='<%= request.getContextPath() %>/admin/memberManage'">회원 정보 출력</div>
-                <div class="menu-item" onclick="location.href='<%= request.getContextPath() %>/admin/notice'">공지사항 관리</div>
-                <div class="menu-item" onclick="location.href='<%= request.getContextPath() %>/book/bookList'">도서 관리</div>
+                <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/memberManage'">회원 정보 출력</div>
+                <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/notice'">공지사항 관리</div>
+                <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/book/bookList'">도서 관리</div>
                 <div class="menu-item">대여 관리</div>
             </div>
             
