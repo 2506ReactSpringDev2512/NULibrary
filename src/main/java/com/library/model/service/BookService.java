@@ -44,4 +44,13 @@ public class BookService {
         JDBCTemplate.close(conn);
         return bookList;
     }
+
+    // 도서 검색
+    public List<BookVO> searchBooks(String keyword, String searchType) {
+        List<BookVO> bookList = null;
+        Connection conn = JDBCTemplate.getConnection();
+        bookList = bookDAO.searchBooks(conn, keyword, searchType);
+        JDBCTemplate.close(conn);
+        return bookList;
+    }
 }

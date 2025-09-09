@@ -154,4 +154,69 @@ public class BookDAO {
         }
         return bookList;
     }
+
+    // 도서 검색
+    public List<BookVO> searchBooks(Connection conn, String keyword, String searchType) {
+        List<BookVO> bookList = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT BOOK_NO, BOOK_NAME, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_CATEGORY, LEND_YN, IS_POPULAR, IS_NEW ");
+        sql.append("FROM BOOK_TBL WHERE ");
+        
+        switch (searchType) {
+            case "title":
+                sql.append("BOOK_NAME LIKE ?");
+                break;
+            case "author":
+                sql.append("BOOK_AUTHOR LIKE ?");
+                break;
+            case "publisher":
+                sql.append("BOOK_PUBLISHER LIKE ?");
+                break;
+            default: // "all"
+                sql.append("(BOOK_NAME LIKE ? OR BOOK_AUTHOR LIKE ? OR BOOK_PUBLISHER LIKE ?)");
+                break;
+        }
+        sql.append(" ORDER BY BOOK_NO");
+        
+        try {
+            pstmt = conn.prepareStatement(sql.toString());
+            String searchKeyword = "%" + keyword + "%";
+            
+            if ("all".equals(searchType)) {
+                pstmt.setString(1, searchKeyword);
+                pstmt.setString(2, searchKeyword);
+                pstmt.setString(3, searchKeyword);
+            } else {
+                pstmt.setString(1, searchKeyword);
+            }
+            
+            rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                BookVO book = new BookVO();
+                
+                book.setBookNo(rs.getString("BOOK_NO"));
+                book.setBookName(rs.getString("BOOK_NAME"));
+                book.setBookAuthor(rs.getString("BOOK_AUTHOR"));
+                book.setBookPublisher(rs.getString("BOOK_PUBLISHER"));
+                book.setBookCategory(rs.getString("BOOK_CATEGORY"));
+                book.setLendYn(rs.getString("LEND_YN"));
+                book.setIsPopular(rs.getString("IS_POPULAR").charAt(0));
+                book.setIsNew(rs.getString("IS_NEW").charAt(0));
+                
+                bookList.add(book);
+            }
+            System.out.println("✅ 도서 검색 성공 (" + keyword + ", " + searchType + "): " + bookList.size() + "권");
+        } catch (SQLException e) {
+            System.err.println("도서 검색 쿼리 실행 중 오류: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            JDBCTemplate.close(rs);
+            JDBCTemplate.close(pstmt);
+        }
+        return bookList;
+    }
 }
