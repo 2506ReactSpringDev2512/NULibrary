@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
         // 이미 로그인된 사용자라면 메인페이지로 리다이렉트
         HttpSession session = request.getSession();
         if(session.getAttribute("loginUser") != null) {
-            response.sendRedirect(request.getContextPath() + "/main");
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
             return;
         }
         
@@ -76,7 +76,7 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("successMsg", loginUser.getMemberName() + "님, 환영합니다!");
                 
                 // 메인페이지로 다시보냄
-                response.sendRedirect(request.getContextPath() + "/main");
+                response.sendRedirect(request.getContextPath() + "/index.jsp");
                 
             } else {
                 // 로그인 실패
