@@ -113,6 +113,10 @@
             border: 1px solid #ccc;
         }
         
+        .overdue {
+            background-color: #ffe6e6;
+        }
+        
         .footer {
             border: 2px solid #333;
             padding: 20px;
@@ -128,8 +132,19 @@
                 <img src="${pageContext.request.contextPath}/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
             </div>
             <div class="user-info">
-                <div>홍길동님</div>
-                <div>로그아웃</div>
+                <c:choose>
+                    <c:when test="${not empty loginMember}">
+                        <div>${loginMember.memberName}님</div>
+                        <div onclick="location.href='${pageContext.request.contextPath}/member/logout'">로그아웃</div>
+                    </c:when>
+                    <c:when test="${not empty loginUserVO}">
+                        <div>${loginUserVO.memberName}님</div>
+                        <div onclick="location.href='${pageContext.request.contextPath}/member/logout'">로그아웃</div>
+                    </c:when>
+                    <c:otherwise>
+                        <div onclick="location.href='${pageContext.request.contextPath}/member/login.jsp'">로그인</div>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
         
@@ -152,22 +167,37 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>자바 프로그래밍</td>
-                                <td>김자바</td>
-                                <td>2024-09-01</td>
-                                <td>2024-09-15</td>
-                                <td>대여중</td>
-                                <td><button class="return-btn">반납</button></td>
-                            </tr>
-                            <tr>
-                                <td>데이터베이스 설계</td>
-                                <td>이디비</td>
-                                <td>2024-09-02</td>
-                                <td>2024-09-16</td>
-                                <td>대여중</td>
-                                <td><button class="return-btn">반납</button></td>
-                            </tr>
+                            <c:choose>
+                                <c:when test="${not empty myRentalList}">
+                                    <c:forEach var="rental" items="${myRentalList}">
+                                        <tr <c:if test="${rental.isOverdue}">class="overdue"</c:if>>
+                                            <td>${rental.bookName}</td>
+                                            <td>${rental.bookAuthor}</td>
+                                            <td>${rental.lendDate}</td>
+                                            <td>${rental.returnDate}</td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${rental.isOverdue}">
+                                                        <span style="color: red; font-weight: bold;">연체</span>
+                                                    </c:when>
+                                                    <c:otherwise>대여중</c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                            <td>
+                                                <form method="post" action="${pageContext.request.contextPath}/lend/return" style="display: inline;">
+                                                    <input type="hidden" name="bookNo" value="${rental.bookNo}">
+                                                    <button type="submit" class="return-btn" onclick="return confirm('정말 반납하시겠습니까?')">반납</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <tr>
+                                        <td colspan="6" class="no-data">현재 대여중인 도서가 없습니다.</td>
+                                    </tr>
+                                </c:otherwise>
+                            </c:choose>
                         </tbody>
                     </table>
                 </div>
@@ -189,18 +219,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>웹 프로그래밍</td>
-                                <td>박웹</td>
-                                <td>2024-08-15</td>
-                                <td>2024-08-29</td>
-                                <td>반납완료</td>
-                            </tr>
-                            <tr>
-                                <td>알고리즘 기초</td>
-                                <td>최알고</td>
-                                <td>2024-08-01</td>
-                                <td>2024-08-14</td>
-                                <td>반납완료</td>
+                                <td colspan="5" class="no-data">대여 이력 기능은 추후 구현 예정입니다.</td>
                             </tr>
                         </tbody>
                     </table>

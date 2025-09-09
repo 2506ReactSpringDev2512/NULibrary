@@ -30,7 +30,7 @@
                     <c:when test="${not empty loginUser}">
                         <!-- 로그인 상태 -->
                         <div onclick="location.href='member/update'">${loginUser}님</div>
-                        <div onclick="location.href='member/myRentals.jsp'">내 대여현황</div>
+                        <div onclick="location.href='member/myRentals'">내 대여현황</div>
                         <div onclick="location.href='member/logout'">로그아웃</div>
                     </c:when>
                     <c:otherwise>
@@ -94,7 +94,7 @@
                         <div class="login-section">
                             <div class="sidebar-title">${loginUser}님 환영합니다</div>
                             <div class="menu-item" onclick="location.href='member/update'">개인정보 수정</div>
-                            <div class="menu-item" onclick="location.href='member/myRentals.jsp'">내 대여현황</div>
+                            <div class="menu-item" onclick="location.href='member/myRentals'">내 대여현황</div>
                             <div class="menu-item" onclick="location.href='member/logout'">로그아웃</div>
                         </div>
                     </c:otherwise>

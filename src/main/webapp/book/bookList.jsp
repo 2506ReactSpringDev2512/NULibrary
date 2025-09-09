@@ -56,13 +56,14 @@
             <th>출판사</th>
             <th>카테고리</th>
             <th>대여 여부</th>
+            <th>대여</th>
         </tr>
     </thead>
     <tbody>
      <!-- bookList 가 비어있을 경우 메세지 출력  -->
      	<c:if test="${empty bookList}">
 		    <tr>
-		        <td colspan="6">등록된 도서가 없습니다.</td>
+		        <td colspan="7">등록된 도서가 없습니다.</td>
 		    </tr>
 		</c:if>
         <c:forEach var="book" items="${bookList}">
@@ -72,7 +73,39 @@
                 <td>${book.bookAuthor}</td>
                 <td>${book.bookPublisher}</td>
                 <td>${book.bookCategory}</td>
-                <td>${book.lendYn}</td>
+                <td>
+                    <c:choose>
+                        <c:when test="${book.lendYn == '대여중'}">
+                            <span style="color: red; font-weight: bold;">대여중</span>
+                        </c:when>
+                        <c:otherwise>
+                            <span style="color: green; font-weight: bold;">대여가능</span>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+                <td>
+                    <c:choose>
+                        <c:when test="${book.lendYn == '대여가능'}">
+                            <c:choose>
+                                <c:when test="${not empty loginMember}">
+                                    <form method="post" action="${pageContext.request.contextPath}/lend/book" style="display: inline;">
+                                        <input type="hidden" name="bookNo" value="${book.bookNo}">
+                                        <button type="submit" 
+                                                style="padding: 5px 10px; border: 1px solid #333; background-color: #f0f0f0; cursor: pointer;"
+                                                onclick="return confirm('「${book.bookName}」 도서를 대여하시겠습니까?')">대여</button>
+                                    </form>
+                                </c:when>
+                                <c:otherwise>
+                                    <button onclick="alert('로그인이 필요합니다.'); location.href='${pageContext.request.contextPath}/member/login.jsp';"
+                                            style="padding: 5px 10px; border: 1px solid #666; background-color: #ccc; cursor: pointer;">로그인</button>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:when>
+                        <c:otherwise>
+                            <span style="color: #999;">대여중</span>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
             </tr>
         </c:forEach>
     </tbody>
