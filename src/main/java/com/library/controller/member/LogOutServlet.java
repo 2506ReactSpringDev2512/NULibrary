@@ -20,7 +20,6 @@ public class LogOutServlet extends HttpServlet {
      */
     public LogOutServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -41,7 +40,7 @@ public class LogOutServlet extends HttpServlet {
 			}
 		}
 		
-		response.sendRedirect(request.getContextPath() + "/index.jsp");
+		response.sendRedirect(request.getContextPath() + "/main");
 	}
 
 	/**

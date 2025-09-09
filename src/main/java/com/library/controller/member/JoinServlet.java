@@ -23,7 +23,6 @@ public class JoinServlet extends HttpServlet {
 	 */
 	public JoinServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -32,8 +31,7 @@ public class JoinServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/member/join.jsp").forward(request, response);
+		request.getRequestDispatcher("/member/join.jsp").forward(request, response);
 	}
 
 	/**
@@ -42,26 +40,6 @@ public class JoinServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		/*String memberId = request.getParameter("memberId");
-		String memberPw = request.getParameter("memberPw");
-		String memberName = request.getParameter("memberName");
-		String memberPhone = request.getParameter("memberPhone");
-		String memberGender = request.getParameter("memberGender");
-		int memberAge = Integer.parseInt(request.getParameter("memberAge"));
-
-		String adminYN = request.getParameter("adminYN");
-
-		Member member = new Member(memberName, memberId, memberPw, memberPhone, memberGender, memberAge, adminYN);
-		System.out.println(member.toString());
-		MemberService mService = new MemberService();
-
-		int result = mService.insertMember(member);
-		
-		
-		if (result > 0) {
-			response.sendRedirect("/");
-		}*/
-		
 		 // 1. 클라이언트에서 넘어온 값 받기
 	    String memberId = request.getParameter("memberId");
 	    String memberPw = request.getParameter("memberPw");

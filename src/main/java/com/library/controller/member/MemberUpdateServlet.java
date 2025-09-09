@@ -34,7 +34,7 @@ public class MemberUpdateServlet extends HttpServlet {
 		String loginUser = (String)session.getAttribute("loginUser");
 		
 		if(loginUser == null) {
-			response.sendRedirect(request.getContextPath() + "/index.jsp");
+			response.sendRedirect(request.getContextPath() + "/main");
 			return;
 		}
 		
@@ -52,7 +52,7 @@ public class MemberUpdateServlet extends HttpServlet {
 		MemberVO loginMember = (MemberVO)session.getAttribute("loginUserVO");
 		
 		if(loginUser == null || loginMember == null) {
-			response.sendRedirect(request.getContextPath() + "/index.jsp");
+			response.sendRedirect(request.getContextPath() + "/main");
 			return;
 		}
 		
@@ -101,7 +101,7 @@ public class MemberUpdateServlet extends HttpServlet {
 			session.setAttribute("loginUser", updateMember.getMemberName());
 			session.setAttribute("loginUserVO", updateMember);
 			session.setAttribute("successMsg", "회원정보가 성공적으로 수정되었습니다.");
-			response.sendRedirect(request.getContextPath() + "/index.jsp");
+			response.sendRedirect(request.getContextPath() + "/main");
 		} else {
 			session.setAttribute("errorMsg", "회원정보 수정에 실패했습니다. 다시 시도해주세요.");
 			response.sendRedirect(request.getContextPath() + "/member/update");

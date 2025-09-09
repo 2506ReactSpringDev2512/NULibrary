@@ -49,14 +49,27 @@ body {
     border: 2px solid #333;
     padding: 30px;
     text-align: center;
-    background-color: #f9f9f9;
+    /* 도서관 책장 이미지 배경 */
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+        url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    min-height: 200px;
 }
 
 .search-title {
-    border: 1px solid #666;
+    border: 1px solid #fff;
     padding: 10px;
     margin-bottom: 20px;
     display: inline-block;
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    font-weight: bold;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .search-box {
