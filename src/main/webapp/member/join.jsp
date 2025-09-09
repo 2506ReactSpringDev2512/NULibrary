@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -127,8 +128,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">
-                <img src="<%= request.getContextPath() %>/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
+            <div class="logo" onclick="location.href='${pageContext.request.contextPath}/index.jsp'">
+                <img src="${pageContext.request.contextPath}/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
             </div>
             <div class="nav-menu">
                 <div>홈으로</div>
@@ -185,7 +186,7 @@
                     
                     <div class="button-group">
                         <button type="submit" class="btn">회원가입</button>
-                        <button type="button" class="btn" onclick="location.href='<%= request.getContextPath() %>/'">취소</button>
+                        <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/'">취소</button>
                     </div>
                 </form>
             </div>

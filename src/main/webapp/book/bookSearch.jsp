@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -181,8 +183,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">
-                <img src="<%= request.getContextPath() %>/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
+            <div class="logo" onclick="location.href='${pageContext.request.contextPath}/index.jsp'">
+                <img src="${pageContext.request.contextPath}/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
             </div>
             <div class="user-info">
                 <div>홈으로</div>
@@ -190,41 +192,78 @@
         </div>
         
         <div class="search-section">
-            <div class="search-box">
-                <input type="text" class="search-input" value="자바" placeholder="도서명, 저자, 출판사를 입력하세요">
-                <button class="search-btn">검색</button>
-            </div>
+            <form action="search" method="get">
+                <div class="search-box">
+                    <input type="text" name="keyword" class="search-input" value="${keyword}" placeholder="도서명, 저자, 출판사를 입력하세요">
+                    <button type="submit" class="search-btn">검색</button>
+                </div>
+                <div class="search-options" style="text-align: center; margin-top: 10px;">
+                    <input type="radio" name="searchType" value="all" ${searchType == 'all' || empty searchType ? 'checked' : ''}> 전체
+                    <input type="radio" name="searchType" value="title" ${searchType == 'title' ? 'checked' : ''}> 도서명
+                    <input type="radio" name="searchType" value="author" ${searchType == 'author' ? 'checked' : ''}> 저자
+                    <input type="radio" name="searchType" value="publisher" ${searchType == 'publisher' ? 'checked' : ''}> 출판사
+                </div>
+            </form>
         </div>
         
         <div class="main-content">
             <div class="result-info">
-                <strong>"자바"</strong> 검색 결과 <strong>15건</strong>
+                <c:choose>
+                    <c:when test="${not empty errorMsg}">
+                        <strong style="color: red;">${errorMsg}</strong>
+                    </c:when>
+                    <c:when test="${not empty keyword}">
+                        <strong>"${keyword}"</strong> 검색 결과 <strong>${resultCount}건</strong>
+                    </c:when>
+                    <c:otherwise>
+                        검색어를 입력해주세요.
+                    </c:otherwise>
+                </c:choose>
             </div>
             
             <div class="book-list">
-                <div class="book-item">
-                    <div class="book-image">도서 이미지</div>
-                    <div class="book-info">
-                        <div class="book-title">자바 프로그래밍 완벽 가이드</div>
-                        <div class="book-details">
-                            <div><strong>저자:</strong> 김자바</div>
-                            <div><strong>출판사:</strong> 자바 출판사</div>
-                            <div><strong>출간일:</strong> 2024-01-15</div>
-                            <div><strong>ISBN:</strong> 978-1234567890</div>
+                <c:choose>
+                    <c:when test="${empty searchResults}">
+                        <div style="text-align: center; padding: 50px; font-size: 18px; color: #666;">
+                            검색 결과가 없습니다.
                         </div>
-                        <div class="book-actions">
-                            <div class="status available">대여가능</div>
-                            <button class="rent-btn">대여하기</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="book-item">
-                    <div class="book-image">도서 이미지</div>
-                    <div class="book-info">
-                        <div class="book-title">실전 자바 웹 개발</div>
-                        <div class="book-details">
-                            <div><strong>저자:</strong> 박웹개발</div>
-                            <div><strong>출판사:</strong> 웹 출판사</div>
-                            <div><strong>출간일:</strong> 2024-03-20</div>
-                            <div><strong>ISBN:</strong> 978-
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach var="book" items="${searchResults}">
+                            <div class="book-item">
+                                <div class="book-image">
+                                    <img src="${pageContext.request.contextPath}/image/book/all/${book.bookNo}.jpg" 
+                                         alt="${book.bookName}" style="width: 100px; height: 120px; object-fit: cover;">
+                                </div>
+                                <div class="book-info">
+                                    <div class="book-title">${book.bookName}</div>
+                                    <div class="book-details">
+                                        <div><strong>저자:</strong> ${book.bookAuthor}</div>
+                                        <div><strong>출판사:</strong> ${book.bookPublisher}</div>
+                                        <div><strong>카테고리:</strong> ${book.bookCategory}</div>
+                                        <div><strong>도서번호:</strong> ${book.bookNo}</div>
+                                    </div>
+                                    <div class="book-actions">
+                                        <div class="status ${book.lendYn == 'Y' ? 'unavailable' : 'available'}">
+                                            ${book.lendYn == 'Y' ? '대여중' : '대여가능'}
+                                        </div>
+                                        <c:if test="${book.lendYn != 'Y'}">
+                                            <button class="rent-btn" onclick="rentBook('${book.bookNo}')">대여하기</button>
+                                        </c:if>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
+        
+        <script>
+            function rentBook(bookNo) {
+                // 대여 기능은 나중에 구현
+                alert('도서번호 ' + bookNo + ' 대여 기능은 준비 중입니다.');
+            }
+        </script>
+    </body>
+</html>

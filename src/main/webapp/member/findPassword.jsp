@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -129,8 +130,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">
-                <img src="<%= request.getContextPath() %>/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
+            <div class="logo" onclick="location.href='${pageContext.request.contextPath}/index.jsp'">
+                <img src="${pageContext.request.contextPath}/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
             </div>
         </div>
         
@@ -139,43 +140,34 @@
             
             <div class="form-container">
                 <!-- 메시지 표시 영역 -->
-                <%
-                    String successMsg = (String)request.getAttribute("successMsg");
-                    String errorMsg = (String)request.getAttribute("errorMsg");
-                    String foundPassword = (String)request.getAttribute("foundPassword");
-                    
-                    if(successMsg != null && foundPassword != null) {
-                %>
-                <div class="message success-message">
-                    <%= successMsg %><br>
-                    비밀번호: <%= foundPassword %>
-                </div>
-                <%
-                    } else if(errorMsg != null) {
-                %>
-                <div class="message error-message">
-                    <%= errorMsg %>
-                </div>
-                <%
-                    }
-                %>
+                <c:if test="${not empty successMsg and not empty foundPassword}">
+                    <div class="message success-message">
+                        ${successMsg}<br>
+                        비밀번호: ${foundPassword}
+                    </div>
+                </c:if>
+                <c:if test="${not empty errorMsg}">
+                    <div class="message error-message">
+                        ${errorMsg}
+                    </div>
+                </c:if>
                 
-                <form action="<%= request.getContextPath() %>/member/findPassword" method="post">
+                <form action="${pageContext.request.contextPath}/member/findPassword" method="post">
                     <div class="form-group">
                         <label>아이디</label>
                         <input type="text" name="memberId" placeholder="가입시 입력한 아이디를 입력하세요" 
-                               value="<%= request.getAttribute("memberId") != null ? request.getAttribute("memberId") : "" %>" required>
+                               value="${not empty memberId ? memberId : ''}" required>
                     </div>
                     
                     <div class="form-group">
                         <label>전화번호</label>
                         <input type="tel" name="memberPhone" placeholder="가입시 입력한 전화번호를 입력하세요 (예: 01012345678)" 
-                               value="<%= request.getAttribute("memberPhone") != null ? request.getAttribute("memberPhone") : "" %>" required>
+                               value="${not empty memberPhone ? memberPhone : ''}" required>
                     </div>
                     
                     <div class="btn-group">
                         <button type="submit" class="btn">비밀번호 찾기</button>
-                        <button type="button" class="btn" onclick="location.href='<%= request.getContextPath() %>/member/login'">로그인으로 돌아가기</button>
+                        <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/member/login'">로그인으로 돌아가기</button>
                     </div>
                 </form>
             </div>

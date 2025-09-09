@@ -1,16 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.library.model.vo.MemberVO" %>
-<%
-    // 로그인 정보 확인
-    String loginUser = (String)session.getAttribute("loginUser");
-    MemberVO loginMember = (MemberVO)session.getAttribute("loginUserVO");
-    
-    if(loginUser == null || loginMember == null) {
-        response.sendRedirect(request.getContextPath() + "/index.jsp");
-        return;
-    }
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:if test="${empty loginUser or empty loginUserVO}">
+    <c:redirect url="/index.jsp" />
+</c:if>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -133,11 +126,11 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">
-                <img src="<%= request.getContextPath() %>/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
+            <div class="logo" onclick="location.href='${pageContext.request.contextPath}/index.jsp'">
+                <img src="${pageContext.request.contextPath}/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
             </div>
             <div class="user-info">
-                <div><%=loginUser%>님</div>
+                <div>${loginUser}님</div>
                 <div>로그아웃</div>
             </div>
         </div>
@@ -146,31 +139,26 @@
             <div class="page-title">개인정보 수정</div>
             
             <!-- 에러 메시지 표시 -->
-            <%
-                String errorMsg = (String)session.getAttribute("errorMsg");
-                if(errorMsg != null) {
-                    session.removeAttribute("errorMsg");
-            %>
-            <div id="errorMessage" style="background-color: #f8d7da; color: #721c24; padding: 15px; border: 1px solid #f5c6cb; margin: 20px 0; text-align: center;">
-                <%= errorMsg %>
-            </div>
-            <script>
-                setTimeout(function() {
-                    var msg = document.getElementById('errorMessage');
-                    if(msg) {
-                        msg.style.display = 'none';
-                    }
-                }, 2000);
-            </script>
-            <%
-                }
-            %>
+            <c:if test="${not empty errorMsg}">
+                <div id="errorMessage" style="background-color: #f8d7da; color: #721c24; padding: 15px; border: 1px solid #f5c6cb; margin: 20px 0; text-align: center;">
+                    ${errorMsg}
+                </div>
+                <script>
+                    setTimeout(function() {
+                        var msg = document.getElementById('errorMessage');
+                        if(msg) {
+                            msg.style.display = 'none';
+                        }
+                    }, 2000);
+                </script>
+                <c:remove var="errorMsg" scope="session" />
+            </c:if>
             
             <div class="form-container">
-                <form action="<%= request.getContextPath() %>/member/update" method="post">
+                <form action="${pageContext.request.contextPath}/member/update" method="post">
                     <div class="form-group">
                         <label>아이디</label>
-                        <input type="text" value="<%=loginMember.getMemberId()%>" class="readonly" readonly>
+                        <input type="text" value="${loginUserVO.memberId}" class="readonly" readonly>
                     </div>
                     
                     <div class="form-group">
@@ -190,22 +178,22 @@
                     
                     <div class="form-group">
                         <label>이름</label>
-                        <input type="text" name="memberName" value="<%=loginMember.getMemberName()%>">
+                        <input type="text" name="memberName" value="${loginUserVO.memberName}">
                     </div>
                     
                     <div class="form-group">
                         <label>전화번호</label>
-                        <input type="tel" name="memberPhone" value="<%=loginMember.getMemberPhone()%>">
+                        <input type="tel" name="memberPhone" value="${loginUserVO.memberPhone}">
                     </div>
                     
                     <div class="form-group">
                         <label>나이</label>
-                        <input type="number" name="memberAge" value="<%=loginMember.getMemberAge()%>">
+                        <input type="number" name="memberAge" value="${loginUserVO.memberAge}">
                     </div>
                     
                     <div class="button-group">
                         <button type="submit" class="btn">수정 완료</button>
-                        <button type="button" class="btn" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">취소</button>
+                        <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/index.jsp'">취소</button>
                     </div>
                 </form>
             </div>

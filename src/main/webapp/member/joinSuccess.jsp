@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -102,8 +103,8 @@
     <div class="container">
         <!-- 헤더 -->
         <div class="header">
-            <div class="logo" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">
-                <img src="<%= request.getContextPath() %>/image/logo.png" alt="도서관 로고" style="height: 60px; width:200px; border: none; outline: none;">
+            <div class="logo" onclick="location.href='${pageContext.request.contextPath}/index.jsp'">
+                <img src="${pageContext.request.contextPath}/image/logo.png" alt="도서관 로고" style="height: 60px; width:200px; border: none; outline: none;">
             </div>
             <div class="nav-menu">
                 <div>홈으로</div>

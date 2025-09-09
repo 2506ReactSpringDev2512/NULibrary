@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -147,12 +148,12 @@
     <div class="container">
         <!-- 헤더 -->
         <div class="header">
-            <div class="logo" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">
-                <img src="<%= request.getContextPath() %>/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
+            <div class="logo" onclick="location.href='${pageContext.request.contextPath}/index.jsp'">
+                <img src="${pageContext.request.contextPath}/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
             </div>
             <div class="nav-menu">
-                <div onclick="location.href='<%= request.getContextPath() %>/index.jsp'">홈으로</div>
-                <div onclick="location.href='<%= request.getContextPath() %>/admin/adminLogin.jsp'">관리자 로그인</div>
+                <div onclick="location.href='${pageContext.request.contextPath}/index.jsp'">홈으로</div>
+                <div onclick="location.href='${pageContext.request.contextPath}/admin/adminLogin.jsp'">관리자 로그인</div>
             </div>
         </div>
         
@@ -162,22 +163,16 @@
                 <div class="login-title">회원 로그인</div>
                 
                 <!-- 에러 메시지 표시 -->
-                <%
-                    String errorMsg = (String)request.getAttribute("errorMsg");
-                    String userId = (String)request.getAttribute("userId");
-                    if(errorMsg != null) {
-                %>
-                <div class="error-message">
-                    <%= errorMsg %>
-                </div>
-                <%
-                    }
-                %>
+                <c:if test="${not empty errorMsg}">
+                    <div class="error-message">
+                        ${errorMsg}
+                    </div>
+                </c:if>
                 
-                <form class="login-form" action="<%= request.getContextPath() %>/member/login" method="post">
+                <form class="login-form" action="${pageContext.request.contextPath}/member/login" method="post">
                     <div class="input-group">
                         <input type="text" name="userId" placeholder="아이디를 입력하세요" 
-                               value="<%= userId != null ? userId : "" %>" required>
+                               value="${not empty userId ? userId : ''}" required>
                     </div>
                     <div class="input-group">
                         <input type="password" name="password" placeholder="비밀번호를 입력하세요" required>
@@ -186,8 +181,8 @@
                 </form>
                 
                 <div class="login-links">
-                    <a href="<%= request.getContextPath() %>/member/join.jsp">회원가입</a>
-                    <a href="<%= request.getContextPath() %>/member/findPassword">비밀번호 찾기</a>
+                    <a href="${pageContext.request.contextPath}/member/join.jsp">회원가입</a>
+                    <a href="${pageContext.request.contextPath}/member/findPassword">비밀번호 찾기</a>
                 </div>
             </div>
         </div>

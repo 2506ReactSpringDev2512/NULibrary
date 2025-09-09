@@ -36,12 +36,12 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">
-                <img src="<%= request.getContextPath() %>/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
+            <div class="logo" onclick="location.href='${pageContext.request.contextPath}/index.jsp'">
+                <img src="${pageContext.request.contextPath}/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
             </div>
             <div class="nav-menu">
-                <div onclick="location.href='<%= request.getContextPath() %>/notice/list'">공지사항 목록</div>
-                <div onclick="location.href='<%= request.getContextPath() %>/index.jsp'">홈으로</div>
+                <div onclick="location.href='${pageContext.request.contextPath}/notice/list'">공지사항 목록</div>
+                <div onclick="location.href='${pageContext.request.contextPath}/index.jsp'">홈으로</div>
             </div>
         </div>
         
@@ -63,7 +63,7 @@
             </c:if>
             
             <!-- 공지사항 작성 폼 -->
-            <form class="write-form" action="<%= request.getContextPath() %>/notice/write" method="post">
+            <form class="write-form" action="${pageContext.request.contextPath}/notice/write" method="post">
                 <div class="form-group">
                     <label for="noticeSubject">제목 <span class="required">*</span></label>
                     <input type="text" id="noticeSubject" name="noticeSubject" 
