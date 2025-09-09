@@ -81,4 +81,12 @@ public class MemberService {
     	return memberList;
     	
     }
+    public List<MemberVO> searchMembersById(String memberId) {
+        Connection conn = JDBCTemplate.getConnection();
+        List<MemberVO> memberList = memberDAO.searchMemberById(conn, memberId);
+        JDBCTemplate.close(conn);
+        return memberList;
+    }
+    
+   
 }

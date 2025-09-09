@@ -32,7 +32,7 @@
         
         <div class="main-content">
             <div class="sidebar">
-                <div class="menu-item">대시보드</div>
+                <div class="menu-item" onclick="location.href='<%= request.getContextPath() %>/admin/main'">대시보드</div>
                 <div class="menu-item" style="background:#f0f0f0;">회원 정보 조회</div>
                 <div class="menu-item" onclick="location.href='<%= request.getContextPath() %>/admin/notice'">공지사항 관리</div>
                 <div class="menu-item">도서 관리</div>
@@ -41,9 +41,11 @@
             
             <div class="content">
                 <div class="search-box">
-                    <input type="text" class="search-input" placeholder="회원 이름 또는 아이디 검색">
-                    <button class="search-btn">검색</button>
-                </div>
+                    <form action="<%= request.getContextPath() %>/admin/memberManage" method="get">
+				        <input type="text" name="memberId" class="search-input" placeholder="회원 아이디 검색">
+				        <button type="submit" class="search-btn">검색</button>
+				    </form>
+				</div>
                 
                 <table class="member-table">
                     <thead>

@@ -241,6 +241,7 @@ public class MemberDAO {
         String sql = "SELECT MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, " +
                     "MEMBER_GENDER, MEMBER_AGE, ADMIN_YN " +
                     "FROM MEMBER_TBL " +
+                    "WHERE ADMIN_YN = 'N' " +  // 관리자는 제외코드 추가 
                     "ORDER BY MEMBER_ID";
         
         try {
@@ -301,5 +302,51 @@ public class MemberDAO {
         }
         
         return count;
+    }
+    
+    /**
+     * 아이디로 회원 검색
+     * @return 회원 목록 list 
+     */
+    public List<MemberVO> searchMemberById(Connection conn, String memberId) {
+        List<MemberVO> memberList = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        String sql = "SELECT MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, " +
+                     "MEMBER_GENDER, MEMBER_AGE, ADMIN_YN " +
+                     "FROM MEMBER_TBL " +
+                     "WHERE MEMBER_ID LIKE ? " +   
+                     "AND ADMIN_YN = 'N' " +       
+                     "ORDER BY MEMBER_ID";
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, "%" + memberId + "%"); 
+            rs = pstmt.executeQuery();
+
+            while(rs.next()) {
+                MemberVO member = new MemberVO();
+                member.setMemberId(rs.getString("MEMBER_ID"));
+                member.setMemberPw(rs.getString("MEMBER_PW"));
+                member.setMemberName(rs.getString("MEMBER_NAME"));
+                member.setMemberPhone(rs.getString("MEMBER_PHONE"));
+                member.setMemberGender(rs.getString("MEMBER_GENDER"));
+                member.setMemberAge(rs.getInt("MEMBER_AGE"));
+                member.setAdminYn(rs.getString("ADMIN_YN"));
+
+                memberList.add(member);
+            }
+
+            System.out.println("✅ 회원 목록 조회 성공: " + memberList.size() + "명");
+
+        } catch (SQLException e) {
+            System.err.println("회원 조회 쿼리 실행 중 오류: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            JDBCTemplate.close(rs);
+            JDBCTemplate.close(pstmt);
+        }
+        return memberList;
     }
 }

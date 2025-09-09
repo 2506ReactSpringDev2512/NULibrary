@@ -122,12 +122,12 @@
                 
                 <!-- 도서 카테고리 -->
                 <div style="margin-top: 30px;">
-                    <div class="sidebar-title">도서 카테고리</div>
-                    <div class="menu-item" onclick="searchByCategory('소설')" style="padding-left: 25%;">소설 / 문학</div>
-                    <div class="menu-item" onclick="searchByCategory('인문')" style="padding-left: 25%;">인문 / 사회</div>
-                    <div class="menu-item" onclick="searchByCategory('과학')" style="padding-left: 20%;">자연과학 / 기술</div>
-                    <div class="menu-item" onclick="searchByCategory('예술')" style="padding-left: 25%;">예술 / 취미</div>
-                    <div class="menu-item" onclick="searchByCategory('아동')" style="padding-left: 20%;">아동 / 청소년</div>
+                    <div class="sidebar-title" onclick="location.href='book/bookList'" style=cursor:pointer;>도서 카테고리</div>
+                    <div class="menu-item" onclick="location.href='book/bookList?category=' + encodeURIComponent('소설/문학')" style="padding-left: 25%;">소설 / 문학</div>
+                    <div class="menu-item" onclick="location.href='book/bookList?category=' + encodeURIComponent('인문/사회')" style="padding-left: 25%;">인문 / 사회</div>
+                    <div class="menu-item" onclick="location.href='book/bookList?category=' + encodeURIComponent('자연과학/기술')" style="padding-left: 20%;">자연과학 / 기술</div>
+                    <div class="menu-item" onclick="location.href='book/bookList?category=' + encodeURIComponent('예술/취미')" style="padding-left: 25%;">예술 / 취미</div>
+                    <div class="menu-item" onclick="location.href='book/bookList?category=' + encodeURIComponent('아동/청소년')" style="padding-left: 20%;">아동 / 청소년</div>
                 </div>
             </div>
             
@@ -135,97 +135,43 @@
             <div class="content">
                 <!-- 인기 도서 섹션 -->
                 <div class="section">
-                    <div class="section-title">인기 도서</div>
-                    <div class="book-grid">
-                        <div class="book-item" onclick="location.href='book/detail?bookId=1'">
-                            <div>도서 이미지</div>
-                            <div>Java 프로그래밍</div>
-                            <div>김자바</div>
-                        </div>
-                        <div class="book-item" onclick="location.href='book/detail?bookId=2'">
-                            <div>도서 이미지</div>
-                            <div>웹 개발 완전정복</div>
-                            <div>박웹개발</div>
-                        </div>
-                        <div class="book-item" onclick="location.href='book/detail?bookId=3'">
-                            <div>도서 이미지</div>
-                            <div>데이터베이스 설계</div>
-                            <div>이디비</div>
-                        </div>
-                        <div class="book-item" onclick="location.href='book/detail?bookId=4'">
-                            <div>도서 이미지</div>
-                            <div>알고리즘 기초</div>
-                            <div>최알고</div>
-                        </div>
-                        <div class="book-item" onclick="location.href='book/detail?bookId=5'">
-                            <div>도서 이미지</div>
-                            <div>HTML/CSS 기초</div>
-                            <div>홍HTML</div>
-                        </div>
-                        <div class="book-item" onclick="location.href='book/detail?bookId=6'">
-                            <div>도서 이미지</div>
-                            <div>JavaScript 완벽가이드</div>
-                            <div>정자바스크립트</div>
-                        </div>
-                        <div class="book-item" onclick="location.href='book/detail?bookId=7'">
-                            <div>도서 이미지</div>
-                            <div>Python 데이터분석</div>
-                            <div>이파이썬</div>
-                        </div>
-                        <div class="book-item" onclick="location.href='book/detail?bookId=8'">
-                            <div>도서 이미지</div>
-                            <div>AI 프로그래밍</div>
-                            <div>박AI</div>
-                        </div>
-                    </div>
+                <div class="section-title">인기 도서</div>
+                <div class="book-grid">
+                    <c:forEach var="book" items="${bookPopularList}" varStatus="status">
+                        <c:if test="${status.index < 8}">
+                            <div class="book-item">
+                                <div class="book-image">
+                                    <img src="${pageContext.request.contextPath}/image/book/popular/${book.bookNo}.jpg" alt="이미지">
+                                </div>
+                                <div class="book-info">
+                                    <div>${book.bookName}</div>
+                                    <div>${book.bookAuthor}</div>
+                                </div>
+                            </div>
+                        </c:if>
+                    </c:forEach>
                 </div>
+            </div>
                 
                 <!-- 신간 도서 섹션 -->
                 <div class="section">
-                    <div class="section-title">신간 도서</div>
-                    <div class="book-grid">
-                        <div class="book-item" onclick="location.href='book/detail?bookId=9'">
-                            <div>도서 이미지</div>
-                            <div>Spring Boot 실전</div>
-                            <div>김스프링</div>
-                        </div>
-                        <div class="book-item" onclick="location.href='book/detail?bookId=10'">
-                            <div>도서 이미지</div>
-                            <div>React 개발 가이드</div>
-                            <div>박리액트</div>
-                        </div>
-                        <div class="book-item" onclick="location.href='book/detail?bookId=11'">
-                            <div>도서 이미지</div>
-                            <div>머신러닝 입문</div>
-                            <div>이머신</div>
-                        </div>
-                        <div class="book-item" onclick="location.href='book/detail?bookId=12'">
-                            <div>도서 이미지</div>
-                            <div>클라우드 컴퓨팅</div>
-                            <div>최클라우드</div>
-                        </div>
-                        <div class="book-item" onclick="location.href='book/detail?bookId=13'">
-                            <div>도서 이미지</div>
-                            <div>Docker & Kubernetes</div>
-                            <div>도커킴</div>
-                        </div>
-                        <div class="book-item" onclick="location.href='book/detail?bookId=14'">
-                            <div>도서 이미지</div>
-                            <div>Vue.js 시작하기</div>
-                            <div>뷰개발자</div>
-                        </div>
-                        <div class="book-item" onclick="location.href='book/detail?bookId=15'">
-                            <div>도서 이미지</div>
-                            <div>블록체인 개발</div>
-                            <div>블록체인박</div>
-                        </div>
-                        <div class="book-item" onclick="location.href='book/detail?bookId=16'">
-                            <div>도서 이미지</div>
-                            <div>모바일 앱 개발</div>
-                            <div>모바일이</div>
-                        </div>
-                    </div>
+                <div class="section-title">신간 도서</div>
+                <div class="book-grid">
+                    <c:forEach var="book" items="${bookNewList}" varStatus="status">
+                        <c:if test="${status.index < 8}">
+                            <div class="book-item">
+                                <div class="book-image">
+                                    <img src="${pageContext.request.contextPath}/image/book/new/${book.bookNo}.jpg" alt="이미지">
+                                </div>
+                                <div class="book-info">
+                                    <div>${book.bookName}</div>
+                                    <div>${book.bookAuthor}</div>
+                                </div>
+                            </div>
+                        </c:if>
+                    </c:forEach>    
                 </div>
+            </div>
             </div>
             
             <!-- 우측 사이드바 -->
@@ -260,7 +206,7 @@
                 
                 <!-- 공지사항 위젯 (DB 연동) -->
                 <div class="widget">
-    <div class="widget-title" onclick="location.href='notice/list'">공지사항</div>
+    <div class="widget-title" onclick="location.href='notice/list'" style=cursor:pointer;>공지사항</div>
     <c:choose>
         <c:when test="${not empty recentNotices}">
             <c:forEach items="${recentNotices}" var="notice">
