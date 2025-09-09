@@ -31,7 +31,7 @@
         }
         
         .logo {
-            border: 1px solid #666;
+           
             padding: 10px 20px;
             font-weight: bold;
             display: inline-block;
@@ -129,7 +129,9 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">도서관 로고</div>
+            <div class="logo" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">
+                <img src="<%= request.getContextPath() %>/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
+            </div>
         </div>
         
         <div class="main-content">

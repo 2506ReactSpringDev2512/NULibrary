@@ -33,7 +33,7 @@
         }
         
         .logo {
-            border: 1px solid #666;
+            
             padding: 10px 20px;
             font-weight: bold;
         }
@@ -110,7 +110,9 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo">도서관 로고</div>
+            <div class="logo" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">
+                <img src="<%= request.getContextPath() %>/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
+            </div>
             <div class="nav-menu">
             <!-- 클릭시 메인홈으로 이동하도록 수정  -->
                 <div onclick="location.href='/'">홈으로</div>

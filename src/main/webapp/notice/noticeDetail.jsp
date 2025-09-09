@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -33,9 +34,10 @@
         }
         
         .logo {
-            border: 1px solid #666;
+            
             padding: 10px 20px;
             font-weight: bold;
+            cursor: pointer;
         }
         
         .nav-menu div {
@@ -96,61 +98,81 @@
             margin: 0 10px;
         }
         
+        .btn:hover {
+            background-color: #f0f0f0;
+        }
+        
         .footer {
             border: 2px solid #333;
             padding: 20px;
             text-align: center;
             background-color: #f9f9f9;
         }
+        
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border: 1px solid #f5c6cb;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .no-notice {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo">도서관 로고</div>
+            <div class="logo" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">
+                <img src="<%= request.getContextPath() %>/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
+            </div>
             <div class="nav-menu">
-                <div>홈으로</div>
+                <div onclick="location.href='<%= request.getContextPath() %>/index.jsp'">홈으로</div>
             </div>
         </div>
         
         <div class="main-content">
-            <div class="notice-container">
-                <div class="notice-header">
-                    <div class="notice-title">도서관 휴관 안내</div>
-                    <div class="notice-info">
-                        <span>작성일: 2024-09-02</span>
-                        <span>조회수: 156</span>
+            <!-- 에러 메시지 표시 -->
+            <c:if test="${not empty errorMsg}">
+                <div class="error-message">
+                    ${errorMsg}
+                </div>
+            </c:if>
+            
+            <!-- 공지사항 내용 -->
+            <c:choose>
+                <c:when test="${not empty notice}">
+                    <div class="notice-container">
+                        <div class="notice-header">
+                            <div class="notice-title">${notice.noticeSubject}</div>
+                            <div class="notice-info">
+                                <span>작성일: ${notice.formattedDate}</span>
+                                <span>조회수: ${notice.viewCount}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="notice-content">
+                            ${notice.formattedContent}
+                        </div>
+                        
+                        <div class="button-section">
+                            <button class="btn" onclick="location.href='<%= request.getContextPath() %>/notice/list'">목록으로</button>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="notice-content">
-                    안녕하세요. 도서관 이용자 여러분께 휴관 일정을 안내드립니다.
-                    <br><br>
-                    
-                    <strong>휴관 일정:</strong> 2024년 9월 10일(화) ~ 9월 12일(목)
-                    <br><br>
-                    
-                    <strong>휴관 사유:</strong> 시설 점검 및 도서 정리 작업
-                    <br><br>
-                    
-                    휴관 기간 중에는 도서 대여/반납 서비스가 중단되며, 
-                    온라인 도서 검색 서비스는 정상적으로 이용 가능합니다.
-                    <br><br>
-                    
-                    이용에 불편을 드려 죄송하며, 
-                    9월 13일(금)부터 정상 운영될 예정입니다.
-                    <br><br>
-                    
-                    감사합니다.
-                    <br><br>
-                    
-                    도서관 관리팀
-                </div>
-                
-                <div class="button-section">
-                    <button class="btn">목록으로</button>
-                </div>
-            </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="no-notice">
+                        <p>공지사항을 찾을 수 없습니다.</p>
+                        <br>
+                        <button class="btn" onclick="location.href='<%= request.getContextPath() %>/notice/list'">목록으로</button>
+                    </div>
+                </c:otherwise>
+            </c:choose>
         </div>
         
         <div class="footer">

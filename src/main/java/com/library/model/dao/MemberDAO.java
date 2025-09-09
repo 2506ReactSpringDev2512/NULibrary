@@ -239,11 +239,10 @@ public class MemberDAO {
         ResultSet rs = null;
         
         String sql = "SELECT MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, " +
-                "MEMBER_GENDER, MEMBER_AGE, ADMIN_YN " +
-                "FROM MEMBER_TBL " +
-                "WHERE ADMIN_YN = 'N' " +  // 관리자는 제외코드 추가 
-                "ORDER BY MEMBER_ID";
-        
+                    "MEMBER_GENDER, MEMBER_AGE, ADMIN_YN " +
+                    "FROM MEMBER_TBL " +
+                    "WHERE ADMIN_YN = 'N' " +  // 관리자는 제외코드 추가 
+                    "ORDER BY MEMBER_ID";
         try {
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();

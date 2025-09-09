@@ -22,32 +22,30 @@ public class BookListServlet extends HttpServlet {
     	super();
     }
     
-    @Override
+    
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-
+        
+        String category = request.getParameter("category");
+        
         BookService bService = new BookService();
-        List<BookVO> bookList = bService.selectAllList();
-
-
-        // JSP로 전달
-        if(bookList.size() > 0) {
-        	request.setAttribute("bookList", bookList);
-        	request.getRequestDispatcher("/book/bookList.jsp").forward(request, response);
+        List<BookVO> bookList;
+        
+        if (category != null && !category.trim().isEmpty()) {
+            // 카테고리별 도서 조회
+            bookList = bService.selectBooksByCategory(category);
+            request.setAttribute("selectedCategory", category);
+        } else {
+            // 전체 도서 조회
+            bookList = bService.selectAllList();
         }
         
-        // 로그 출력
-        System.out.println("도서 목록 개수: " + bookList.size());
-        for (BookVO b : bookList) {
-        	System.out.println("도서 이름: " + b.getBookName());
-        }
-
+        request.setAttribute("bookList", bookList);
+        request.getRequestDispatcher("/book/bookList.jsp").forward(request, response);
     }
     
-    /**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        doGet(request, response);
+    }
 }

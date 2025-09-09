@@ -35,4 +35,13 @@ public class BookService {
         JDBCTemplate.close(conn);
         return bookNewList;
     }
+
+    // 카테고리별 도서 목록 출력
+    public List<BookVO> selectBooksByCategory(String category) {
+        List<BookVO> bookList = null;
+        Connection conn = JDBCTemplate.getConnection();
+        bookList = bookDAO.selectBooksByCategory(conn, category);
+        JDBCTemplate.close(conn);
+        return bookList;
+    }
 }

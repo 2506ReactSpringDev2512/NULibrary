@@ -5,6 +5,7 @@ public class BookVO {
     private String bookName;     // BOOK_NAME
     private String bookAuthor;   // BOOK_AUTHOR
     private String bookPublisher;// BOOK_PUBLISHER
+    private String bookCategory; // BOOK_CATEGORY
     private String lendYn;       // LEND_YN
     private char isPopular;      // IS_POPULAR
     private char isNew;          // IS_NEW
@@ -12,11 +13,12 @@ public class BookVO {
     public BookVO() {}
 
     public BookVO(String bookNo, String bookName, String bookAuthor,
-                  String bookPublisher, String lendYn, char isPopular, char isNew) {
+                  String bookPublisher, String bookCategory, String lendYn, char isPopular, char isNew) {
         this.bookNo = bookNo;
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.bookPublisher = bookPublisher;
+        this.bookCategory = bookCategory;
         this.lendYn = lendYn;
         this.isPopular = isPopular;
         this.isNew = isNew;
@@ -34,6 +36,9 @@ public class BookVO {
     public String getBookPublisher() { return bookPublisher; }
     public void setBookPublisher(String bookPublisher) { this.bookPublisher = bookPublisher; }
 
+    public String getBookCategory() { return bookCategory; }
+    public void setBookCategory(String bookCategory) { this.bookCategory = bookCategory; }
+
     public String getLendYn() { return lendYn; }
     public void setLendYn(String lendYn) { this.lendYn = lendYn; }
 
@@ -47,6 +52,7 @@ public class BookVO {
     public String toString() {
         return "BookVO [bookNo=" + bookNo + ", bookName=" + bookName +
                ", bookAuthor=" + bookAuthor + ", bookPublisher=" + bookPublisher +
-               ", lendYn=" + lendYn + ", isPopular=" + isPopular + ", isNew=" + isNew + "]";
+               ", bookCategory=" + bookCategory + ", lendYn=" + lendYn + 
+               ", isPopular=" + isPopular + ", isNew=" + isNew + "]";
     }
 }

@@ -34,7 +34,7 @@
         }
         
         .logo {
-            border: 1px solid #666;
+            
             padding: 10px 20px;
             font-weight: bold;
         }
@@ -102,7 +102,9 @@
     <div class="container">
         <!-- 헤더 -->
         <div class="header">
-            <div class="logo">도서관 로고</div>
+            <div class="logo" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">
+                <img src="<%= request.getContextPath() %>/image/logo.png" alt="도서관 로고" style="height: 60px; width:200px; border: none; outline: none;">
+            </div>
             <div class="nav-menu">
                 <div>홈으로</div>
                 <div>관리자 로그인</div>

@@ -41,7 +41,7 @@
             
             <div class="content">
                 <div class="search-box">
-				    <form action="<%= request.getContextPath() %>/admin/memberManage" method="get">
+                    <form action="<%= request.getContextPath() %>/admin/memberManage" method="get">
 				        <input type="text" name="memberId" class="search-input" placeholder="회원 아이디 검색">
 				        <button type="submit" class="search-btn">검색</button>
 				    </form>
