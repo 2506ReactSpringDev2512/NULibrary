@@ -119,7 +119,7 @@
                 <div class="book-grid">
                     <c:forEach var="book" items="${bookPopularList}" varStatus="status">
                         <c:if test="${status.index < 8}">
-                            <div class="book-item">
+                            <div class="book-item" onclick="location.href='${pageContext.request.contextPath}/book/detail?bookNo=${book.bookNo}'" style="cursor:pointer;">
                                 <div class="book-image">
                                     <img src="${pageContext.request.contextPath}/image/book/popular/${book.bookNo}.jpg" alt="이미지">
                                 </div>
@@ -139,7 +139,7 @@
                     <div class="book-grid">
                         <c:forEach var="book" items="${bookNewList}" varStatus="status">
                             <c:if test="${status.index < 8}">
-                                <div class="book-item">
+                                <div class="book-item" onclick="location.href='${pageContext.request.contextPath}/book/detail?bookNo=${book.bookNo}'" style="cursor:pointer;">
                                     <div class="book-image">
                                         <img src="${pageContext.request.contextPath}/image/book/new/${book.bookNo}.jpg" alt="이미지">
                                     </div>
