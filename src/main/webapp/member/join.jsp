@@ -117,6 +117,15 @@
             font-weight: bold;
         }
         
+        /* 메시지 스타일 */
+        .error-message {
+            color: red;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid red;
+            background-color: #ffe6e6;
+        }
+        
         .footer {
             border: 2px solid #333;
             padding: 20px;
@@ -128,37 +137,50 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo" onclick="location.href='${pageContext.request.contextPath}/index.jsp'">
+            <div class="logo" onclick="location.href='${pageContext.request.contextPath}/main'">
                 <img src="${pageContext.request.contextPath}/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
             </div>
             <div class="nav-menu">
-                <div>홈으로</div>
+                <div onclick="location.href='${pageContext.request.contextPath}/main'">홈으로</div>
             </div>
         </div>
         
+        <!-- 회원가입 메인 영역 -->
         <div class="main-content">
+            <div class="form-container">
             <div class="page-title">회원가입</div>
             
-            <div class="form-container">
-               <form action="/member/join" method="post">
+            <!-- 에러 메세지 출력 -->
+            <c:if test="${not empty errorMsg}">
+                    <div class="error-message">
+                        ${errorMsg}
+                    </div>
+                    <c:remove var="errorMsg" scope="session"/>
+            </c:if>
+            
+               <form class="join-form" action="${pageContext.request.contextPath}/member/join" method="post">
                     <div class="form-group">
                         <label>아이디</label>
-                        <input type="text" name="memberId" placeholder="아이디를 입력하세요">
+                        <input type="text" name="memberId" placeholder="아이디를 입력하세요"
+                        value="${not empty memberId ? memberId : ''}" required>
                     </div>
                     
                     <div class="form-group">
 					    <label>비밀번호</label>
-					    <input type="password" name="memberPw" placeholder="비밀번호를 입력하세요">
+					    <input type="password" name="memberPw" placeholder="비밀번호를 입력하세요"
+					    value="${not empty memberPw ? memberPw : ''}" required>
 					</div>
 				
 					<div class="form-group">
 				   		<label>비밀번호 확인</label>
-				   		<input type="password" name="memberPwConfirm" placeholder="비밀번호를 다시 입력하세요">
+				   		<input type="password" name="memberPwConfirm" placeholder="비밀번호를 다시 입력하세요"
+				   		value="${not empty memberPwConfirm ? memberPwConfirm : ''}" required>
 					</div>
                     
                     <div class="form-group">
                         <label>이름</label>
-                        <input type="text" name="memberName" placeholder="이름을 입력하세요">
+                        <input type="text" name="memberName" placeholder="이름을 입력하세요"
+                        value="${not empty memberName ? memberName : ''}" required>
                     </div>
                     
                     <div class="form-group gender">
@@ -175,18 +197,20 @@
                     
                     <div class="form-group">
                         <label>전화번호</label>
-                        <input type="tel" name="memberPhone" placeholder="전화번호를 입력하세요 ( - 제외 )">
+                        <input type="tel" name="memberPhone" placeholder="전화번호를 입력하세요 ( - 제외 )"
+                         value="${not empty memberPhone ? memberPhone : ''}" required>
                     </div>
                     
                     <div class="form-group">
     					<label>나이</label>
-   				 		<input type="number" name="memberAge" placeholder="나이를 입력하세요">
+   				 		<input type="number" name="memberAge" placeholder="나이를 입력하세요"
+   				 		 value="${not empty memberAge ? memberAge : ''}" required>
 					</div>
                     
                     
                     <div class="button-group">
                         <button type="submit" class="btn">회원가입</button>
-                        <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/'">취소</button>
+                        <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/main'">취소</button>
                     </div>
                 </form>
             </div>

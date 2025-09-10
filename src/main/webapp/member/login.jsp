@@ -148,11 +148,11 @@
     <div class="container">
         <!-- 헤더 -->
         <div class="header">
-            <div class="logo" onclick="location.href='${pageContext.request.contextPath}/index.jsp'">
+            <div class="logo" onclick="location.href='${pageContext.request.contextPath}/main'">
                 <img src="${pageContext.request.contextPath}/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
             </div>
             <div class="nav-menu">
-                <div onclick="location.href='${pageContext.request.contextPath}/index.jsp'">홈으로</div>
+                <div onclick="location.href='${pageContext.request.contextPath}/main'">홈으로</div>
                 <div onclick="location.href='${pageContext.request.contextPath}/admin/adminLogin.jsp'">관리자 로그인</div>
             </div>
         </div>
@@ -181,7 +181,7 @@
                 </form>
                 
                 <div class="login-links">
-                    <a href="${pageContext.request.contextPath}/member/join.jsp">회원가입</a>
+                    <a href="${pageContext.request.contextPath}/member/join">회원가입</a>
                     <a href="${pageContext.request.contextPath}/member/findPassword">비밀번호 찾기</a>
                 </div>
             </div>

@@ -10,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class JoinServlet
@@ -23,7 +24,6 @@ public class JoinServlet extends HttpServlet {
 	 */
 	public JoinServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -32,8 +32,7 @@ public class JoinServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/member/join.jsp").forward(request, response);
+		request.getRequestDispatcher("/member/join.jsp").forward(request, response);
 	}
 
 	/**
@@ -42,27 +41,8 @@ public class JoinServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		/*String memberId = request.getParameter("memberId");
-		String memberPw = request.getParameter("memberPw");
-		String memberName = request.getParameter("memberName");
-		String memberPhone = request.getParameter("memberPhone");
-		String memberGender = request.getParameter("memberGender");
-		int memberAge = Integer.parseInt(request.getParameter("memberAge"));
-
-		String adminYN = request.getParameter("adminYN");
-
-		Member member = new Member(memberName, memberId, memberPw, memberPhone, memberGender, memberAge, adminYN);
-		System.out.println(member.toString());
-		MemberService mService = new MemberService();
-
-		int result = mService.insertMember(member);
-		
-		
-		if (result > 0) {
-			response.sendRedirect("/");
-		}*/
-		
-		 // 1. 클라이언트에서 넘어온 값 받기
+		HttpSession session = request.getSession();
+		// 1. 클라이언트에서 넘어온 값 받기
 	    String memberId = request.getParameter("memberId");
 	    String memberPw = request.getParameter("memberPw");
 	    String memberPwConfirm = request.getParameter("memberPwConfirm");
@@ -76,15 +56,25 @@ public class JoinServlet extends HttpServlet {
 	        adminYN = "N";
 	    }
 
-	    // 2. 비밀번호 확인 체크
-	    if(!memberPw.equals(memberPwConfirm)) {
-	        // 비밀번호가 일치하지 않으면 실패 페이지로 이동
-	        response.sendRedirect("joinFail.jsp?msg=pwMismatch");
-	        return;
-	    }
+	    // 2. Service 호출
+	    MemberService mService = new MemberService();
+	    
+	    // 3. 아이디 중복 체크
+	 		MemberVO existingMember = mService.getMemberById(memberId);
+	 		if (existingMember != null) {
+	 			session.setAttribute("errorMsg", "이미 사용 중인 아이디입니다.");
+	 			response.sendRedirect(request.getContextPath() + "/member/join");
+	 			return;
+	 		}
+	 		
+	    // 4. 비밀번호 확인 체크
+	    	if(!memberPw.equals(memberPwConfirm)) {
+	    		session.setAttribute("errorMsg", "비밀번호가 일치하지 않습니다.");
+	    		response.sendRedirect(request.getContextPath() + "/member/join");
+	    		return;
+	    	}
 
-
-	    // 2. VO 객체에 담기
+	    // 5. VO 객체에 담기
 	    MemberVO member = new MemberVO();
 	    member.setMemberId(memberId);
 	    member.setMemberPw(memberPw);
@@ -94,15 +84,17 @@ public class JoinServlet extends HttpServlet {
 	    member.setMemberAge(memberAge);
 	    member.setAdminYn(adminYN);
 
-	 // 4. Service 호출
-	    MemberService mService = new MemberService();
+	    
+	    // 6. 회원가입 처리
 	    int result = mService.insertMember(member);
 
-	    // 5. 결과에 따라 페이지 이동
+	    // 7. 결과에 따라 메세지 출력 및 페이지 이동
 	    if(result > 0) {
-	        response.sendRedirect("joinSuccess.jsp");
+	    	session.setAttribute("successMsg", "회원가입이 완료되었습니다!");
+	    	response.sendRedirect(request.getContextPath() + "/main");
 	    } else {
-	        response.sendRedirect("joinFail.jsp");
+	    	session.setAttribute("errorMsg", "회원가입에 실패했습니다. 다시 시도해주세요.");
+			response.sendRedirect(request.getContextPath() + "/member/join");
 	    }
 	}
 }
