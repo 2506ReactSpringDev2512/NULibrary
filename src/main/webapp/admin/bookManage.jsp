@@ -31,18 +31,22 @@
         
         <div class="main-content">
             <div class="sidebar">
-                <div class="menu-item">대시보드</div>
-                <div class="menu-item">회원 관리</div>
-                <div class="menu-item" style="background:#f0f0f0;">도서 관리</div>
+                <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/main'">대시보드</div>
+                <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/memberManage'">회원 정보 조회</div>
+                <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/notice'">공지사항 관리</div>
+                <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/bookManage'"
+                	style="background:#f0f0f0;">도서 관리</div>
                 <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/rentalManage'">대여 관리</div>
             </div>
             
             <div class="content">
                 <div class="top-actions">
-                    <div>
-                        <input type="text" class="search-input" placeholder="도서명 또는 저자 검색">
-                        <button class="btn">검색</button>
-                    </div>
+	              <form action="${pageContext.request.contextPath}/admin/bookManage" method="get">
+	                    <div>
+	                        <input type="text" class="search-input" name="keyword" value="${keyword}" placeholder="검색어를 입력해주세요.">
+	                        <button class="btn">검색</button>
+	                    </div>
+                    </form>
                     <button class="btn">도서 추가</button>
                 </div>
                 
