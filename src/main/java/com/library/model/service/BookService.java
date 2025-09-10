@@ -87,4 +87,28 @@ public class BookService {
         JDBCTemplate.close(conn);
         return book;
     }
+    
+    // 전체 도서 수 조회
+    public int getTotalBookCount() {
+        Connection conn = JDBCTemplate.getConnection();
+        int count = bookDAO.getTotalBookCount(conn);
+        JDBCTemplate.close(conn);
+        return count;
+    }
+    
+    // 대여 가능한 도서 수 조회
+    public int getAvailableBookCount() {
+        Connection conn = JDBCTemplate.getConnection();
+        int count = bookDAO.getAvailableBookCount(conn);
+        JDBCTemplate.close(conn);
+        return count;
+    }
+    
+    // 대여 중인 도서 수 조회
+    public int getRentedBookCount() {
+        Connection conn = JDBCTemplate.getConnection();
+        int count = bookDAO.getRentedBookCount(conn);
+        JDBCTemplate.close(conn);
+        return count;
+    }
 }

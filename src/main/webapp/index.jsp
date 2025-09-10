@@ -161,19 +161,19 @@
                     <div class="widget-title">도서관 현황</div>
                     <div class="stats-item">
                         <span>전체 도서</span>
-                        <span>12,543권</span>
+                        <span>${totalBookCount}권</span>
                     </div>
                     <div class="stats-item">
                         <span>대여 가능</span>
-                        <span>9,821권</span>
+                        <span>${availableBookCount}권</span>
                     </div>
                     <div class="stats-item">
                         <span>대여 중</span>
-                        <span>2,722권</span>
+                        <span>${rentedBookCount}권</span>
                     </div>
                     <div class="stats-item">
                         <span>등록 회원</span>
-                        <span>1,456명</span>
+                        <span>${totalMemberCount}명</span>
                     </div>
                 </div>
                 

@@ -261,4 +261,67 @@ public class BookDAO {
         }
         return book;
     }
+    
+    // 전체 도서 수 조회
+    public int getTotalBookCount(Connection conn) {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int count = 0;
+        try {
+            String sql = "SELECT COUNT(*) FROM BOOK_TBL";
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            if(rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        } finally {
+            JDBCTemplate.close(rs);
+            JDBCTemplate.close(pstmt);
+        }
+        return count;
+    }
+    
+    // 대여 가능한 도서 수 조회
+    public int getAvailableBookCount(Connection conn) {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int count = 0;
+        try {
+            String sql = "SELECT COUNT(*) FROM BOOK_TBL WHERE LEND_YN = '대여가능'";
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            if(rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        } finally {
+            JDBCTemplate.close(rs);
+            JDBCTemplate.close(pstmt);
+        }
+        return count;
+    }
+    
+    // 대여 중인 도서 수 조회
+    public int getRentedBookCount(Connection conn) {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int count = 0;
+        try {
+            String sql = "SELECT COUNT(*) FROM BOOK_TBL WHERE LEND_YN = '대여중'";
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            if(rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        } finally {
+            JDBCTemplate.close(rs);
+            JDBCTemplate.close(pstmt);
+        }
+        return count;
+    }
 }
