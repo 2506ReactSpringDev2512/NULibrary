@@ -226,7 +226,7 @@
                     </c:when>
                     <c:otherwise>
                         <c:forEach var="book" items="${searchResults}">
-                            <div class="book-item">
+                            <div class="book-item" onclick="location.href='${pageContext.request.contextPath}/book/detail?bookNo=${book.bookNo}'" style="cursor:pointer;">
                                 <div class="book-image">
                                     <img src="${pageContext.request.contextPath}/image/book/all/${book.bookNo}.jpg" 
                                          alt="${book.bookName}" style="width: 100px; height: 120px; object-fit: cover;">
@@ -238,14 +238,6 @@
                                         <div><strong>출판사:</strong> ${book.bookPublisher}</div>
                                         <div><strong>카테고리:</strong> ${book.bookCategory}</div>
                                         <div><strong>도서번호:</strong> ${book.bookNo}</div>
-                                    </div>
-                                    <div class="book-actions">
-                                        <div class="status ${book.lendYn == 'Y' ? 'unavailable' : 'available'}">
-                                            ${book.lendYn == 'Y' ? '대여중' : '대여가능'}
-                                        </div>
-                                        <c:if test="${book.lendYn != 'Y'}">
-                                            <button class="rent-btn" onclick="rentBook('${book.bookNo}')">대여하기</button>
-                                        </c:if>
                                     </div>
                                 </div>
                             </div>

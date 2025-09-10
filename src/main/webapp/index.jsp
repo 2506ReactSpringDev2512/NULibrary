@@ -36,7 +36,7 @@
                     <c:otherwise>
                         <!-- 비로그인 상태 -->
                         <div onclick="location.href='member/login'">로그인</div>
-                        <div onclick="location.href='member/join.jsp'">회원가입</div>
+                        <div onclick="location.href='member/join'">회원가입</div>
                     </c:otherwise>
                 </c:choose>
             </div>
@@ -179,30 +179,32 @@
                 
                 <!-- 공지사항 위젯 (DB 연동) -->
                 <div class="widget">
-    <div class="widget-title" onclick="location.href='notice/list'" style=cursor:pointer;>공지사항</div>
-    <c:choose>
-        <c:when test="${not empty recentNotices}">
-            <c:forEach items="${recentNotices}" var="notice">
-                <div class="notice-item" onclick="location.href='notice/detail?noticeNo=${notice.noticeNo}'">
-                    <span class="notice-title">
-                        <c:choose>
-                            <c:when test="${fn:length(notice.noticeSubject) > 15}">
-                                ${fn:substring(notice.noticeSubject, 0, 15)}...
-                            </c:when>
-                            <c:otherwise>
-                                ${notice.noticeSubject}
-                            </c:otherwise>
-                        </c:choose>
-                    </span>
-                    <span class="notice-date">${notice.shortDate}</span>
-                </div>
-           	</c:forEach>
-        </c:when>
-        <c:otherwise>
-            <div class="notice-item">
-                <span class="notice-title">등록된 공지사항이 없습니다</span>
-                <span class="notice-date">--</span>
-            </div>
-        </c:otherwise>
-    </c:choose>
-</div>
+		    <div class="widget-title" onclick="location.href='notice/list'" style=cursor:pointer;>공지사항</div>
+		    <c:choose>
+		        <c:when test="${not empty recentNotices}">
+		            <c:forEach items="${recentNotices}" var="notice">
+		                <div class="notice-item" onclick="location.href='notice/detail?noticeNo=${notice.noticeNo}'">
+		                    <span class="notice-title">
+		                        <c:choose>
+		                            <c:when test="${fn:length(notice.noticeSubject) > 15}">
+		                                ${fn:substring(notice.noticeSubject, 0, 15)}...
+		                            </c:when>
+		                            <c:otherwise>
+		                                ${notice.noticeSubject}
+		                            </c:otherwise>
+		                        </c:choose>
+		                    </span>
+		                    <span class="notice-date">${notice.shortDate}</span>
+		                </div>
+		           	</c:forEach>
+		        </c:when>
+		        <c:otherwise>
+		            <div class="notice-item">
+		                <span class="notice-title">등록된 공지사항이 없습니다</span>
+		                <span class="notice-date">--</span>
+		            </div>
+		        </c:otherwise>
+		    </c:choose>
+		</div>
+	</body>
+</html>

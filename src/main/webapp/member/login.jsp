@@ -181,7 +181,7 @@
                 </form>
                 
                 <div class="login-links">
-                    <a href="${pageContext.request.contextPath}/member/join.jsp">회원가입</a>
+                    <a href="${pageContext.request.contextPath}/member/join">회원가입</a>
                     <a href="${pageContext.request.contextPath}/member/findPassword">비밀번호 찾기</a>
                 </div>
             </div>

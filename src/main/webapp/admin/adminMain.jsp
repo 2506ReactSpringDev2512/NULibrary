@@ -29,7 +29,7 @@
         <div class="header">
             <div class="logo">관리자 시스템</div>
             <div class="admin-info">
-                <div>${loginAdmin}관리자님</div>
+                <div>${loginAdmin}님</div>
                 <div onclick="location.href='${pageContext.request.contextPath}/member/logout'">로그아웃</div>
             </div>
         </div>

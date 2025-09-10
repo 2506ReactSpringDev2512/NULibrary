@@ -142,7 +142,7 @@
                 <button type="submit" class="login-btn">관리자 로그인</button>
             </form>
             
-            <a href="${pageContext.request.contextPath}/index.jsp" class="back-link">메인 페이지로 돌아가기</a>
+            <a href="${pageContext.request.contextPath}/main" class="back-link">메인 페이지로 돌아가기</a>
         </div>
     </div>
     
