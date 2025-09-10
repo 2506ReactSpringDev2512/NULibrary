@@ -49,7 +49,7 @@ public class LendBookServlet extends HttpServlet {
             request.setAttribute("errorMsg", "도서 대여에 실패했습니다. (이미 대여중이거나 오류가 발생했습니다)");
         }
         
-        // 도서 목록 페이지로 리다이렉트
-        response.sendRedirect(request.getContextPath() + "/book/bookList");
+        // 내 대여현황 페이지로 리다이렉트
+        response.sendRedirect(request.getContextPath() + "/member/myRentals");
     }
 }
