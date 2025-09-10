@@ -203,28 +203,7 @@
                 </div>
             </div>
             
-            <!-- 대여 이력 -->
-            <div class="section">
-                <div class="section-title">대여 이력</div>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>도서명</th>
-                                <th>저자</th>
-                                <th>대여일</th>
-                                <th>반납일</th>
-                                <th>상태</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td colspan="5" class="no-data">대여 이력 기능은 추후 구현 예정입니다.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            
         </div>
         
         <div class="footer">
