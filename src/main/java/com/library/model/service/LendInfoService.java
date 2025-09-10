@@ -128,4 +128,15 @@ public class LendInfoService {
         JDBCTemplate.close(conn);
         return isAvailable;
     }
+    
+    // 관리자 대여 관리 내 검색 기능
+    public List<LendInfoVO> searchLendInfo(String keyword, String searchType){
+    	if (keyword == null) keyword = "";
+    	List<LendInfoVO> lendInfoList = null;
+    	Connection conn = JDBCTemplate.getConnection();
+    	lendInfoList = lendInfoDAO.searchLendInfo(conn, keyword);
+    	JDBCTemplate.close(conn);
+    	return lendInfoList;
+    }
+    
 }

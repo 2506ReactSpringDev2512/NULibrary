@@ -19,31 +19,38 @@ public class RentalManageServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        
-        // 관리자 권한 확인
+    	
+    	// 관리자 권한 확인
         HttpSession session = request.getSession();
         MemberVO loginMember = (MemberVO) session.getAttribute("adminMember");
-        
+       
         if (loginMember == null || !"Y".equals(loginMember.getAdminYn())) {
-            // 관리자가 아닌 경우
-            request.setAttribute("errorMsg", "관리자 권한이 필요합니다.");
+        	// 관리자가 아닌 경우 
+        	request.setAttribute("errorMsg", "관리자 권한이 필요합니다.");
             response.sendRedirect(request.getContextPath() + "/admin/adminLogin.jsp");
             return;
         }
-        
-        // 조회 타입 확인 (전체 또는 연체)
+
+        // 조회 타입 확인
         String type = request.getParameter("type");
+        String keyword = request.getParameter("keyword");
         
+        if (keyword == null) keyword = "";
+
         LendInfoService lendService = new LendInfoService();
         List<LendInfoVO> rentalList = null;
         String pageTitle = "전체 대여 관리";
-        
+
         if ("overdue".equals(type)) {
-            // 연체 도서만 조회
+        	// 연체 도서만 조회
             rentalList = lendService.getOverdueBookList();
             pageTitle = "연체 도서 관리";
+        } else if (!keyword.isBlank()) {
+        	// 검색 결과 조회
+            rentalList = lendService.searchLendInfo(keyword, "all");
+            pageTitle = "검색 결과";
         } else {
-            // 전체 대여 목록 조회
+        	// 전체대여 목록 조회
             rentalList = lendService.getAllLendList();
         }
         
@@ -52,29 +59,32 @@ public class RentalManageServlet extends HttpServlet {
         request.setAttribute("rentalCount", rentalList.size());
         request.setAttribute("pageTitle", pageTitle);
         request.setAttribute("type", type);
-        
-        // JSP로 포워드
+        request.setAttribute("keyword", keyword);
+
+        // JSP로 포워드 
         request.getRequestDispatcher("/admin/rentalManage.jsp").forward(request, response);
     }
-    
+
+    // doPost (반납 처리)
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        
-        // 관리자 권한 확인
+    	// 관리자 권한 확인
         HttpSession session = request.getSession();
         MemberVO loginMember = (MemberVO) session.getAttribute("adminMember");
         
         if (loginMember == null || !"Y".equals(loginMember.getAdminYn())) {
+        	// 관리자가 아닌 경우 
+        	request.setAttribute("errorMsg", "관리자 권한이 필요합니다.");
             response.sendRedirect(request.getContextPath() + "/admin/adminLogin.jsp");
             return;
         }
-        
+
         String action = request.getParameter("action");
         String memberId = request.getParameter("memberId");
         String bookNo = request.getParameter("bookNo");
         
         if ("return".equals(action) && memberId != null && bookNo != null) {
-            // 관리자의 강제 반납 처리
+        	// 관리자의 강제 반납 처리
             LendInfoService lendService = new LendInfoService();
             boolean result = lendService.returnBook(memberId, bookNo);
             
@@ -84,8 +94,7 @@ public class RentalManageServlet extends HttpServlet {
                 request.setAttribute("errorMsg", "반납 처리에 실패했습니다.");
             }
         }
-        
         // GET 방식으로 다시 조회
-        doGet(request, response);
+        doGet(request,response);
     }
 }

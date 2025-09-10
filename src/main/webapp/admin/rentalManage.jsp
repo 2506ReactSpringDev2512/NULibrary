@@ -40,17 +40,21 @@
         <div class="main-content">
             <div class="sidebar">
                 <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/main'">대시보드</div>
-                <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/memberManage'">회원 관리</div>
+                <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/memberManage'">회원 정보 조회</div>
+                <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/notice'">공지사항 관리</div>
                 <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/bookManage'">도서 관리</div>
-                <div class="menu-item" style="background:#f0f0f0;">대여 관리</div>
+                <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/rentalManage'"
+               		style="background:#f0f0f0;">대여 관리</div>
                 <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/rentalManage?type=overdue'" 
-                     style="margin-left: 10px; font-size: 14px;">연체 도서</div>
+                    style="margin-left: 10px; font-size: 14px;">연체 도서</div>
             </div>
             
             <div class="content">
                 <div class="search-box">
-                    <input type="text" class="search-input" placeholder="회원명 또는 도서명 검색">
-                    <button class="search-btn">검색</button>
+                	<form action="${pageContext.request.contextPath}/admin/rentalManage" method="get">
+	                    <input type="text" name="keyword" class="search-input" value="${keyword}"placeholder="회원명 또는 도서명 검색">
+	                    <button class="search-btn">검색</button>
+                    </form>
                 </div>
                 
                 <table class="rental-table">
