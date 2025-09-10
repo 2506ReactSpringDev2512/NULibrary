@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -27,14 +28,23 @@
 </head>
 <body>
     <div class="container">
-        <div class="header">대여 관리</div>
+        <div class="header">
+            <c:choose>
+                <c:when test="${pageTitle != null}">
+                    ${pageTitle}
+                </c:when>
+                <c:otherwise>대여 관리</c:otherwise>
+            </c:choose>
+        </div>
         
         <div class="main-content">
             <div class="sidebar">
-                <div class="menu-item">대시보드</div>
-                <div class="menu-item">회원 관리</div>
-                <div class="menu-item">도서 관리</div>
+                <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/main'">대시보드</div>
+                <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/memberManage'">회원 관리</div>
+                <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/bookManage'">도서 관리</div>
                 <div class="menu-item" style="background:#f0f0f0;">대여 관리</div>
+                <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/rentalManage?type=overdue'" 
+                     style="margin-left: 10px; font-size: 14px;">연체 도서</div>
             </div>
             
             <div class="content">
@@ -56,24 +66,46 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>홍길동</td>
-                            <td>자바 프로그래밍</td>
-                            <td>2024-09-01</td>
-                            <td>2024-09-15</td>
-                            <td>대여중</td>
-                            <td><button class="action-btn">반납처리</button></td>
-                        </tr>
-                        <tr class="overdue">
-                            <td>2</td>
-                            <td>김철수</td>
-                            <td>웹 개발</td>
-                            <td>2024-08-20</td>
-                            <td>2024-09-01</td>
-                            <td>연체</td>
-                            <td><button class="action-btn">반납처리</button></td>
-                        </tr>
+                        <c:choose>
+                            <c:when test="${not empty rentalList}">
+                                <c:forEach var="rental" items="${rentalList}" varStatus="status">
+                                    <tr <c:if test="${rental.isOverdue}">class="overdue"</c:if>>
+                                        <td>${status.count}</td>
+                                        <td>${rental.memberName}</td>
+                                        <td>${rental.bookName}</td>
+                                        <td>${rental.lendDate}</td>
+                                        <td>${rental.returnDate}</td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${rental.isOverdue}">
+                                                    <span style="color: red; font-weight: bold;">연체</span>
+                                                </c:when>
+                                                <c:otherwise>대여중</c:otherwise>
+                                            </c:choose>
+                                        </td>
+                                        <td>
+                                            <form method="post" action="${pageContext.request.contextPath}/admin/rentalManage" style="display: inline;">
+                                                <input type="hidden" name="action" value="return">
+                                                <input type="hidden" name="memberId" value="${rental.MId}">
+                                                <input type="hidden" name="bookNo" value="${rental.bookNo}">
+                                                <input type="hidden" name="type" value="${type}">
+                                                <button type="submit" class="action-btn" onclick="return confirm('${rental.memberName}님의 「${rental.bookName}」 도서를 반납처리 하시겠습니까?')">반납처리</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <tr>
+                                    <td colspan="7" style="text-align: center; padding: 30px; color: #666;">
+                                        <c:choose>
+                                            <c:when test="${type == 'overdue'}">현재 연체 도서가 없습니다.</c:when>
+                                            <c:otherwise>현재 대여중인 도서가 없습니다.</c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                </tr>
+                            </c:otherwise>
+                        </c:choose>
                     </tbody>
                 </table>
             </div>

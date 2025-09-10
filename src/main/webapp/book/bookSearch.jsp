@@ -183,11 +183,11 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo" onclick="location.href='${pageContext.request.contextPath}/index.jsp'">
+            <div class="logo" onclick="location.href='${pageContext.request.contextPath}/main'">
                 <img src="${pageContext.request.contextPath}/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
             </div>
             <div class="user-info">
-                <div>홈으로</div>
+                <div onclick="location.href='${pageContext.request.contextPath}/main'">홈으로</div>
             </div>
         </div>
         
@@ -198,10 +198,6 @@
                     <button type="submit" class="search-btn">검색</button>
                 </div>
                 <div class="search-options" style="text-align: center; margin-top: 10px;">
-                    <input type="radio" name="searchType" value="all" ${searchType == 'all' || empty searchType ? 'checked' : ''}> 전체
-                    <input type="radio" name="searchType" value="title" ${searchType == 'title' ? 'checked' : ''}> 도서명
-                    <input type="radio" name="searchType" value="author" ${searchType == 'author' ? 'checked' : ''}> 저자
-                    <input type="radio" name="searchType" value="publisher" ${searchType == 'publisher' ? 'checked' : ''}> 출판사
                 </div>
             </form>
         </div>

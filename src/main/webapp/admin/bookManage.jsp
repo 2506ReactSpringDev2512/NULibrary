@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -33,7 +34,7 @@
                 <div class="menu-item">대시보드</div>
                 <div class="menu-item">회원 관리</div>
                 <div class="menu-item" style="background:#f0f0f0;">도서 관리</div>
-                <div class="menu-item">대여 관리</div>
+                <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/rentalManage'">대여 관리</div>
             </div>
             
             <div class="content">
@@ -57,32 +58,76 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>자바 프로그래밍</td>
-                            <td>김자바</td>
-                            <td>자바출판사</td>
-                            <td>대여가능</td>
-                            <td>
-                                <button class="action-btn">수정</button>
-                                <button class="action-btn">삭제</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>웹 개발</td>
-                            <td>박웹</td>
-                            <td>웹출판사</td>
-                            <td>대여중</td>
-                            <td>
-                                <button class="action-btn">수정</button>
-                                <button class="action-btn">삭제</button>
-                            </td>
-                        </tr>
+                        <c:choose>
+                            <c:when test="${not empty bookList}">
+                                <c:forEach var="book" items="${bookList}" varStatus="status">
+                                    <tr>
+                                        <td>${status.count}</td>
+                                        <td>${book.bookName}</td>
+                                        <td>${book.bookAuthor}</td>
+                                        <td>${book.bookPublisher}</td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${book.lendYn == '대여중'}">
+                                                    <span style="color: red; font-weight: bold;">대여중</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span style="color: green; font-weight: bold;">대여가능</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
+                                        <td>
+                                            <button class="action-btn" onclick="editBookDescription('${book.bookNo}', '${book.bookName}')">소개 수정</button>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <tr>
+                                    <td colspan="6" style="text-align: center; padding: 30px; color: #666;">
+                                        등록된 도서가 없습니다.
+                                    </td>
+                                </tr>
+                            </c:otherwise>
+                        </c:choose>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
+    <script>
+        function editBookDescription(bookNo, bookName) {
+            var currentDescription = prompt('「' + bookName + '」의 도서 소개를 입력해주세요:', '');
+            
+            if (currentDescription !== null && currentDescription.trim() !== '') {
+                // 도서 소개 수정 요청
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '${pageContext.request.contextPath}/admin/bookManage';
+                
+                var actionInput = document.createElement('input');
+                actionInput.type = 'hidden';
+                actionInput.name = 'action';
+                actionInput.value = 'updateDescription';
+                form.appendChild(actionInput);
+                
+                var bookNoInput = document.createElement('input');
+                bookNoInput.type = 'hidden';
+                bookNoInput.name = 'bookNo';
+                bookNoInput.value = bookNo;
+                form.appendChild(bookNoInput);
+                
+                var descriptionInput = document.createElement('input');
+                descriptionInput.type = 'hidden';
+                descriptionInput.name = 'description';
+                descriptionInput.value = currentDescription;
+                form.appendChild(descriptionInput);
+                
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+    </script>
 </body>
 </html>

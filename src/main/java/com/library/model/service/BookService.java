@@ -63,4 +63,29 @@ public class BookService {
     }
 
     
+    // 도서 소개 수정
+    public boolean updateBookDescription(String bookNo, String description) {
+        boolean result = false;
+        Connection conn = JDBCTemplate.getConnection();
+        
+        try {
+            int updateResult = bookDAO.updateBookDescription(conn, bookNo, description);
+            
+            if (updateResult > 0) {
+                JDBCTemplate.commit(conn);
+                result = true;
+            } else {
+                JDBCTemplate.rollback(conn);
+            }
+            
+        } catch (Exception e) {
+            JDBCTemplate.rollback(conn);
+            System.err.println("도서 소개 수정 서비스 오류: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            JDBCTemplate.close(conn);
+        }
+        
+        return result;
+    }
 }

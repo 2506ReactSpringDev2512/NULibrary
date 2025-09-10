@@ -5,11 +5,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
 import com.library.model.service.BookService;
 import com.library.model.vo.BookVO;
+import com.library.model.vo.MemberVO;
 
 @WebServlet("/book/bookList")
 public class BookListServlet extends HttpServlet {
@@ -17,6 +19,10 @@ public class BookListServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
+        
+        // 세션에서 로그인 정보 가져오기
+        HttpSession session = request.getSession();
+        MemberVO loginMember = (MemberVO) session.getAttribute("loginUserVO");
         
         String category = request.getParameter("category");
         
@@ -33,6 +39,7 @@ public class BookListServlet extends HttpServlet {
         }
         
         request.setAttribute("bookList", bookList);
+        request.setAttribute("loginMember", loginMember); // 로그인 정보 전달
         request.getRequestDispatcher("/book/bookList.jsp").forward(request, response);
     }
     
