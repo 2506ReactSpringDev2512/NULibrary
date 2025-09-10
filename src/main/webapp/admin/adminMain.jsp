@@ -29,7 +29,7 @@
         <div class="header">
             <div class="logo">관리자 시스템</div>
             <div class="admin-info">
-                <div>${loginAdmin}관리자님</div>
+                <div>${loginAdmin}님</div>
                 <div onclick="location.href='${pageContext.request.contextPath}/member/logout'">로그아웃</div>
             </div>
         </div>
@@ -39,8 +39,8 @@
                 <div class="menu-item">대시보드</div>
                 <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/memberManage'">회원 정보 출력</div>
                 <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/notice'">공지사항 관리</div>
-                <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/book/bookList'">도서 관리</div>
-                <div class="menu-item">대여 관리</div>
+                <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/bookManage'">도서 관리</div>
+                <div class="menu-item" onclick="location.href='${pageContext.request.contextPath}/admin/rentalManage'">대여 관리</div>
             </div>
             
             <div class="content">

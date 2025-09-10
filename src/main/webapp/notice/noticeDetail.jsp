@@ -128,11 +128,11 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo" onclick="location.href='${pageContext.request.contextPath}/index.jsp'">
+            <div class="logo" onclick="location.href='${pageContext.request.contextPath}/main'">
                 <img src="${pageContext.request.contextPath}/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
             </div>
             <div class="nav-menu">
-                <div onclick="location.href='${pageContext.request.contextPath}/index.jsp'">홈으로</div>
+                <div onclick="location.href='${pageContext.request.contextPath}/main'">홈으로</div>
             </div>
         </div>
         
