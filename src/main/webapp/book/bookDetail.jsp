@@ -64,13 +64,11 @@
         }
         
         .book-image {
-            --border: 2px solid #666;
             width: 200px;
             height: 250px;
             display: flex;
             align-items: center;
             justify-content: center;
-            --background-color: #f5f5f5;
             font-weight: bold;
         }
         
@@ -210,10 +208,22 @@
                 <div class="book-info">
                     <div class="book-title">${book.bookName}</div>
                     <table class="info-table">
-                        <tr><th>저자</th><td>${book.bookAuthor}</td></tr>
-                        <tr><th>출판사</th><td>${book.bookPublisher}</td></tr>
-                        <tr><th>도서 번호</th><td>${book.bookNo}</td></tr>
-                        <tr><th>카테고리</th><td>${book.bookCategory}</td></tr>
+                        <tr>
+	                        <th>저자</th>
+	                        <td>${book.bookAuthor}</td>
+                        </tr>
+                        <tr>
+	                        <th>출판사</th>
+	                        <td>${book.bookPublisher}</td>
+                        </tr>
+                        <tr>
+	                        <th>도서 번호</th>
+	                        <td>${book.bookNo}</td>
+                        </tr>
+                        <tr>
+	                        <th>카테고리</th>
+	                        <td>${book.bookCategory}</td>
+                        </tr>
                     </table>
                 </div>
             </div>
