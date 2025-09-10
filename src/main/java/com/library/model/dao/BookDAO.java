@@ -228,4 +228,37 @@ public class BookDAO {
         }
         return result;
     }
+    
+ // 도서 상세정보 출력
+    public BookVO selectBookByNo(Connection conn, String bookNo) {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        BookVO book = null;
+        try {
+            String sql = "SELECT * FROM BOOK_TBL WHERE BOOK_NO = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, bookNo);
+            rs = pstmt.executeQuery();
+            if(rs.next()) {
+                book = new BookVO();
+                book.setBookNo(rs.getString("BOOK_NO"));
+                book.setBookName(rs.getString("BOOK_NAME"));
+                book.setBookAuthor(rs.getString("BOOK_AUTHOR"));
+                book.setBookPublisher(rs.getString("BOOK_PUBLISHER"));
+                book.setBookCategory(rs.getString("BOOK_CATEGORY"));
+                book.setLendYn(rs.getString("LEND_YN"));
+                book.setIsPopular(rs.getString("IS_POPULAR").charAt(0));
+                book.setIsNew(rs.getString("IS_NEW").charAt(0));
+                book.setBookDescription(rs.getString("BOOK_DESCRIPTION"));
+            }
+            System.out.println("✅ 도서 정보 조회 성공: " + book.getBookName());
+        } catch(Exception e) {
+        	System.err.println("도서 검색 쿼리 실행 중 오류: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+        	JDBCTemplate.close(rs);
+            JDBCTemplate.close(pstmt);
+        }
+        return book;
+    }
 }

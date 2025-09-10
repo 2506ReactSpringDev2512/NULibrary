@@ -79,4 +79,12 @@ public class BookService {
         
         return result;
     }
+    
+    // 도서 상세정보 출력
+    public BookVO getBookDetail(String bookNo) {
+        Connection conn = JDBCTemplate.getConnection();
+        BookVO book = bookDAO.selectBookByNo(conn, bookNo);
+        JDBCTemplate.close(conn);
+        return book;
+    }
 }
