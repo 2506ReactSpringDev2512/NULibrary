@@ -35,10 +35,10 @@ public class BookDetailServlet extends HttpServlet {
 
         if(book != null) {
             request.setAttribute("book", book);
-            request.getRequestDispatcher("/book/bookDetail.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/book/bookDetail.jsp").forward(request, response);
         } else {
-            request.setAttribute("errorMsg", "해당 도서를 찾을 수 없습니다.");
-            request.getRequestDispatcher("/common/error.jsp").forward(request, response);
+            request.getSession().setAttribute("errorMsg", "해당 도서를 찾을 수 없습니다.");
+            response.sendRedirect(request.getContextPath() + "/book/list");
         }
     }
 
