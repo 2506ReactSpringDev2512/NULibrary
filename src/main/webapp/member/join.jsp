@@ -6,103 +6,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>회원가입 - 도서관</title>
+    <title>회원가입 - NU 대학교 중앙도서관</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        body { 
+            background-color: #ffffff; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
-        }
-        
-        .header {
-            border: 2px solid #333;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            
-            padding: 10px 20px;
-            font-weight: bold;
-        }
-        
-        .nav-menu div {
-            border: 1px solid #666;
-            padding: 8px 15px;
-            cursor: pointer;
+        .container { 
+            width: 100%; 
+            margin: 0; 
+            background-color: #ffffff; 
+            min-height: 100vh; 
         }
         
         .main-content {
-            padding: 40px;
-        }
-        
-        .page-title {
-            border: 2px solid #333;
-            padding: 20px;
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 400px);
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
         }
         
         .form-container {
-            border: 2px solid #333;
-            padding: 30px;
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px;
+            border: none;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2c5282;
+            margin-bottom: 40px;
+            text-align: center;
+            padding: 0;
+            border: none;
+            position: relative;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #2c5282, #3182ce);
+            border-radius: 2px;
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            font-weight: bold;
-            border: 1px solid #ccc;
-            padding: 5px 10px;
-            background-color: #f9f9f9;
+            font-weight: 600;
+            color: #2c5282;
+            font-size: 15px;
+            border: none;
+            padding: 0;
+            background: none;
         }
         
-        .form-group input {
+        .form-group input[type="text"],
+        .form-group input[type="password"],
+        .form-group input[type="tel"],
+        .form-group input[type="number"] {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #666;
-            font-size: 14px;
+            padding: 15px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+            outline: none;
         }
-
-        /* 성별 라디오 전용 스타일 */
+        
+        .form-group input:focus {
+            border-color: #2c5282;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(44, 82, 130, 0.1);
+            transform: translateY(-1px);
+        }
+        
+        .form-group input::placeholder {
+            color: #a0aec0;
+            font-weight: 400;
+        }
+        
+        /* 성별 라디오 스타일 */
         .form-group.gender .radio-group {
             display: flex;
-            gap: 20px;
-            margin-top: 8px;
+            gap: 30px;
+            margin-top: 10px;
         }
-       
+        
         .form-group.gender .radio-group label {
             display: flex;
-            align-items: left;
-            text-align: left;
-            gap : 0px;
-            border: none;
-            font-weight: normal;
-            width : 50%;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            color: #4a5568;
+            cursor: pointer;
+            padding: 12px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+            flex: 1;
+            justify-content: center;
+        }
+        
+        .form-group.gender .radio-group label:hover {
+            border-color: #2c5282;
+            background-color: #e6f0ff;
+        }
+        
+        .form-group.gender .radio-group input[type="radio"] {
+            width: auto;
+            margin: 0;
+            accent-color: #2c5282;
+        }
+        
+        .form-group.gender .radio-group input[type="radio"]:checked + span {
+            color: #2c5282;
+            font-weight: 600;
+        }
+        
+        .form-group.gender .radio-group label:has(input:checked) {
+            border-color: #2c5282;
+            background-color: #e6f0ff;
+            color: #2c5282;
         }
         
         .button-group {
             text-align: center;
-            margin-top: 30px;
+            margin-top: 40px;
             display: flex;
             gap: 20px;
             justify-content: center;
@@ -110,40 +160,123 @@
         
         .btn {
             padding: 15px 30px;
-            border: 2px solid #333;
-            background-color: white;
+            border: none;
+            border-radius: 10px;
             cursor: pointer;
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            flex: 1;
+            max-width: 150px;
         }
         
-        /* 메시지 스타일 */
+        .btn[type="submit"] {
+            background: linear-gradient(135deg, #2c5282 0%, #3182ce 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(44, 82, 130, 0.3);
+        }
+        
+        .btn[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(44, 82, 130, 0.4);
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+        }
+        
+        .btn[type="button"] {
+            background-color: #f7fafc;
+            color: #4a5568;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .btn[type="button"]:hover {
+            background-color: #edf2f7;
+            border-color: #cbd5e0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
         .error-message {
-            color: red;
-            margin-bottom: 15px;
-            padding: 10px;
-            border: 1px solid red;
-            background-color: #ffe6e6;
+            color: #e53e3e;
+            background-color: #fed7d7;
+            border: 2px solid #feb2b2;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        .footer {
-            border: 2px solid #333;
-            padding: 20px;
-            text-align: center;
-            background-color: #f9f9f9;
+        .error-message::before {
+            content: '\f071';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 18px;
+        }
+        
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 30px 15px;
+                min-height: calc(100vh - 300px);
+            }
+            
+            .form-container {
+                padding: 30px 25px;
+                border-radius: 15px;
+            }
+            
+            .page-title {
+                font-size: 28px;
+                margin-bottom: 30px;
+            }
+            
+            .form-group.gender .radio-group {
+                gap: 15px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                max-width: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 25px 20px;
+                margin: 0 10px;
+            }
+            
+            .page-title {
+                font-size: 24px;
+            }
+            
+            .form-group input {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+            
+            .form-group.gender .radio-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 15px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="logo" onclick="location.href='${pageContext.request.contextPath}/main'">
-                <img src="${pageContext.request.contextPath}/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
-            </div>
-            <div class="nav-menu">
-                <div onclick="location.href='${pageContext.request.contextPath}/main'">홈으로</div>
-            </div>
-        </div>
+        <%@ include file="../common/header.jsp" %>
+        
         <!-- 회원가입 메인 영역 -->
         <div class="main-content">
         	<div class="form-container">
@@ -186,10 +319,12 @@
                         <label>성별</label>
                         <div class="radio-group">
                             <label>
-                                <input type="radio" name="memberGender" value="M" checked> 남
+                                <input type="radio" name="memberGender" value="M" checked>
+                                <span>남</span>
                             </label>
                             <label>
-                                <input type="radio" name="memberGender" value="F"> 여
+                                <input type="radio" name="memberGender" value="F">
+                                <span>여</span>
                             </label>
                         </div>
                     </div>
@@ -215,9 +350,7 @@
             </div>
         </div>
         
-        <div class="footer">
-            <div>도서관 정보 | 이용약관 | 개인정보처리방침 | 문의사항</div>
-        </div>
+        <%@ include file="../common/footer.jsp" %>
     </div>
 </body>
 </html>
