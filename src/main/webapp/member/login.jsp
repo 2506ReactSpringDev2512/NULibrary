@@ -5,157 +5,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>도서관 로그인</title>
+    <title>로그인 - NU 대학교 중앙도서관</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        body { 
+            background-color: #ffffff; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            line-height: 1.4;
+        .container { 
+            width: 100%; 
+            margin: 0; 
+            background-color: #ffffff; 
+            min-height: 100vh; 
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: white;
-        }
-        
-        /* 헤더 영역 */
-        .header {
-            border: 2px solid #333;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #fff;
-        }
-        
-        .logo {
-            
-            padding: 10px 20px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        
-        .nav-menu {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .nav-menu div {
-            border: 1px solid #666;
-            padding: 8px 15px;
-            cursor: pointer;
-        }
-        
-        /* 로그인 메인 영역 */
         .login-main {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 500px;
-            padding: 50px 20px;
+            min-height: calc(100vh - 400px);
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
         }
         
         .login-container {
-            border: 2px solid #333;
-            padding: 40px;
-            width: 400px;
-            text-align: center;
             background-color: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            border: none;
         }
         
         .login-title {
-            border: 1px solid #666;
-            padding: 15px;
-            margin-bottom: 30px;
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 32px;
+            font-weight: 700;
+            color: #2c5282;
+            margin-bottom: 40px;
+            padding: 0;
+            border: none;
+            position: relative;
+        }
+        
+        .login-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #2c5282, #3182ce);
+            border-radius: 2px;
         }
         
         .login-form {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         
         .input-group {
-            margin-bottom: 15px;
+            margin-bottom: 25px;
+            position: relative;
         }
         
         .input-group input {
             width: 100%;
-            padding: 15px;
-            border: 2px solid #666;
+            padding: 18px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
             font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+            outline: none;
+        }
+        
+        .input-group input:focus {
+            border-color: #2c5282;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(44, 82, 130, 0.1);
+            transform: translateY(-1px);
+        }
+        
+        .input-group input::placeholder {
+            color: #a0aec0;
+            font-weight: 400;
         }
         
         .login-btn {
             width: 100%;
-            padding: 15px;
-            border: 2px solid #333;
-            background-color: white;
-            font-size: 16px;
-            font-weight: bold;
+            padding: 18px 20px;
+            background: linear-gradient(135deg, #2c5282 0%, #3182ce 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
             cursor: pointer;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(44, 82, 130, 0.3);
         }
         
         .login-btn:hover {
-            background-color: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(44, 82, 130, 0.4);
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
         }
         
         .login-links {
             display: flex;
             justify-content: space-between;
-            padding: 0 10px;
+            gap: 20px;
         }
         
         .login-links a {
             text-decoration: none;
-            color: #666;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            padding: 8px 12px;
+            color: #2c5282;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 12px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+            background-color: #f8f9fa;
         }
         
         .login-links a:hover {
-            background-color: #f0f0f0;
+            background-color: #2c5282;
+            color: white;
+            border-color: #2c5282;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(44, 82, 130, 0.2);
         }
         
-        /* 메시지 스타일 */
         .error-message {
-            color: red;
-            margin-bottom: 15px;
-            padding: 10px;
-            border: 1px solid red;
-            background-color: #ffe6e6;
+            color: #e53e3e;
+            background-color: #fed7d7;
+            border: 2px solid #feb2b2;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        /* 푸터 */
-        .footer {
-            border: 2px solid #333;
-            padding: 20px;
-            text-align: center;
-            background-color: #f9f9f9;
+        .error-message::before {
+            content: '\f071';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 18px;
+        }
+        
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .login-main {
+                padding: 30px 15px;
+                min-height: calc(100vh - 300px);
+            }
+            
+            .login-container {
+                padding: 30px 25px;
+                border-radius: 15px;
+            }
+            
+            .login-title {
+                font-size: 28px;
+                margin-bottom: 30px;
+            }
+            
+            .login-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 25px 20px;
+                margin: 0 10px;
+            }
+            
+            .login-title {
+                font-size: 24px;
+            }
+            
+            .input-group input {
+                padding: 15px 18px;
+                font-size: 15px;
+            }
+            
+            .login-btn {
+                padding: 15px 18px;
+                font-size: 16px;
+            }
+            
+            .login-links a {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- 헤더 -->
-        <div class="header">
-            <div class="logo" onclick="location.href='${pageContext.request.contextPath}/main'">
-                <img src="${pageContext.request.contextPath}/image/logo.png" alt="도서관 로고" style="height: 60px; width:100px; border: none; outline: none;">
-            </div>
-            <div class="nav-menu">
-                <div onclick="location.href='${pageContext.request.contextPath}/main'">홈으로</div>
-                <div onclick="location.href='${pageContext.request.contextPath}/admin/adminLogin.jsp'">관리자 로그인</div>
-            </div>
-        </div>
+        <%@ include file="../common/header.jsp" %>
         
         <!-- 로그인 메인 영역 -->
         <div class="login-main">
@@ -187,10 +248,7 @@
             </div>
         </div>
         
-        <!-- 푸터 -->
-        <div class="footer">
-            <div>도서관 정보 | 이용약관 | 개인정보처리방침 | 문의사항</div>
-        </div>
+        <%@ include file="../common/footer.jsp" %>
     </div>
 </body>
 </html>
