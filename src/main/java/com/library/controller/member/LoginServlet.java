@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
         }
         
         // 로그인 폼으로 이동
-        request.getRequestDispatcher("/member/login.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(request, response);
     }
 
     /**
@@ -57,7 +57,7 @@ public class LoginServlet extends HttpServlet {
         if(userId == null || userId.trim().isEmpty() || 
            password == null || password.trim().isEmpty()) {
             request.setAttribute("errorMsg", "아이디와 비밀번호를 모두 입력해주세요.");
-            request.getRequestDispatcher("/member/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(request, response);
             return;
         }
         
@@ -82,13 +82,13 @@ public class LoginServlet extends HttpServlet {
                 // 로그인 실패
                 request.setAttribute("errorMsg", "아이디 또는 비밀번호가 올바르지 않습니다.");
                 request.setAttribute("userId", userId); // 입력한 아이디 유지
-                request.getRequestDispatcher("/member/login.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(request, response);
             }
             
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMsg", "로그인 처리 중 오류가 발생했습니다.");
-            request.getRequestDispatcher("/member/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(request, response);
         }
     }
     

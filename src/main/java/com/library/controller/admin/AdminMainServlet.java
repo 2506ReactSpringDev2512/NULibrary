@@ -37,7 +37,7 @@ public class AdminMainServlet extends HttpServlet {
 		}
 		
 		// 관리자 메인 페이지로 포워드
-		request.getRequestDispatcher("/admin/adminMain.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/admin/adminMain.jsp").forward(request, response);
 	}
 
 	/**

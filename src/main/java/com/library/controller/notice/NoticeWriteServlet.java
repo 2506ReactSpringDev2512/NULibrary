@@ -28,7 +28,7 @@ public class NoticeWriteServlet extends HttpServlet {
             throws ServletException, IOException {
         
         // 공지사항 작성 페이지로 포워드
-        request.getRequestDispatcher("/notice/noticeWrite.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/notice/noticeWrite.jsp").forward(request, response);
     }
 
     /**
@@ -49,13 +49,13 @@ public class NoticeWriteServlet extends HttpServlet {
             // 입력값 검증
             if (noticeSubject == null || noticeSubject.trim().isEmpty()) {
                 request.setAttribute("errorMsg", "제목을 입력해주세요.");
-                request.getRequestDispatcher("/notice/noticeWrite.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/views/notice/noticeWrite.jsp").forward(request, response);
                 return;
             }
             
             if (noticeContent == null || noticeContent.trim().isEmpty()) {
                 request.setAttribute("errorMsg", "내용을 입력해주세요.");
-                request.getRequestDispatcher("/notice/noticeWrite.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/views/notice/noticeWrite.jsp").forward(request, response);
                 return;
             }
             
@@ -80,13 +80,13 @@ public class NoticeWriteServlet extends HttpServlet {
             } else {
                 // 작성 실패
                 request.setAttribute("errorMsg", "공지사항 작성에 실패했습니다. 다시 시도해주세요.");
-                request.getRequestDispatcher("/notice/noticeWrite.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/views/notice/noticeWrite.jsp").forward(request, response);
             }
             
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMsg", "공지사항 작성 중 오류가 발생했습니다: " + e.getMessage());
-            request.getRequestDispatcher("/notice/noticeWrite.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/notice/noticeWrite.jsp").forward(request, response);
         }
     }
 }

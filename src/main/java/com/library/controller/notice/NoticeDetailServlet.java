@@ -48,7 +48,7 @@ public class NoticeDetailServlet extends HttpServlet {
                 request.setAttribute("notice", notice);
                 
                 // 공지사항 상세 페이지로 포워드
-                request.getRequestDispatcher("/notice/noticeDetail.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/views/notice/noticeDetail.jsp").forward(request, response);
             } else {
                 // 공지사항이 존재하지 않으면 목록으로 리다이렉트
                 request.getSession().setAttribute("errorMsg", "존재하지 않는 공지사항입니다.");
@@ -62,7 +62,7 @@ public class NoticeDetailServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMsg", "공지사항 조회 중 오류가 발생했습니다.");
-            request.getRequestDispatcher("/notice/noticeDetail.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/notice/noticeDetail.jsp").forward(request, response);
         }
     }
 

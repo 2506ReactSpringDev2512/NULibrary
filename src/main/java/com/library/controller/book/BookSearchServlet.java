@@ -23,7 +23,7 @@ public class BookSearchServlet extends HttpServlet {
         // 검색어가 없으면 에러 처리
         if (keyword == null || keyword.trim().isEmpty()) {
             request.setAttribute("errorMsg", "검색어를 입력해주세요.");
-            request.getRequestDispatcher("/book/bookSearch.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/book/bookSearch.jsp").forward(request, response);
             return;
         }
         
@@ -44,7 +44,7 @@ public class BookSearchServlet extends HttpServlet {
         request.setAttribute("resultCount", searchResults.size());
         
         // 검색 결과 페이지로 포워드
-        request.getRequestDispatcher("/book/bookSearch.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/book/bookSearch.jsp").forward(request, response);
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 

@@ -40,7 +40,7 @@ public class BookListServlet extends HttpServlet {
         
         request.setAttribute("bookList", bookList);
         request.setAttribute("loginMember", loginMember); // 로그인 정보 전달
-        request.getRequestDispatcher("/book/bookList.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/book/bookList.jsp").forward(request, response);
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 

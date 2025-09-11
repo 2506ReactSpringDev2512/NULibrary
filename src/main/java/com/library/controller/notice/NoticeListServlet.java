@@ -51,12 +51,12 @@ public class NoticeListServlet extends HttpServlet {
             request.setAttribute("noticeList", noticeList);
             
             // 공지사항 목록 페이지로 포워드
-            request.getRequestDispatcher("/notice/noticeList.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/notice/noticeList.jsp").forward(request, response);
             
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMsg", "공지사항 목록 조회 중 오류가 발생했습니다.");
-            request.getRequestDispatcher("/notice/noticeList.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/notice/noticeList.jsp").forward(request, response);
         }
     }
 

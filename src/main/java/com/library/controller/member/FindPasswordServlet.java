@@ -30,7 +30,7 @@ public class FindPasswordServlet extends HttpServlet {
             throws ServletException, IOException {
         
         // 비밀번호 찾기 폼으로 이동
-        request.getRequestDispatcher("/member/findPassword.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/member/findPassword.jsp").forward(request, response);
     }
 
     /**
@@ -49,7 +49,7 @@ public class FindPasswordServlet extends HttpServlet {
         if(memberId == null || memberId.trim().isEmpty() || 
            memberPhone == null || memberPhone.trim().isEmpty()) {
             request.setAttribute("errorMsg", "아이디와 전화번호를 모두 입력해주세요.");
-            request.getRequestDispatcher("/member/findPassword.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/member/findPassword.jsp").forward(request, response);
             return;
         }
         
@@ -83,14 +83,14 @@ public class FindPasswordServlet extends HttpServlet {
             }
             
             // 결과 페이지로 이동
-            request.getRequestDispatcher("/member/findPassword.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/member/findPassword.jsp").forward(request, response);
             
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMsg", "비밀번호 찾기 처리 중 오류가 발생했습니다.");
             request.setAttribute("memberId", memberId);
             request.setAttribute("memberPhone", memberPhone);
-            request.getRequestDispatcher("/member/findPassword.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/member/findPassword.jsp").forward(request, response);
         }
     }
 }

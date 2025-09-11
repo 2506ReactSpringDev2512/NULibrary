@@ -38,7 +38,7 @@ public class MemberUpdateServlet extends HttpServlet {
 			return;
 		}
 		
-		request.getRequestDispatcher("/member/mypage.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/member/mypage.jsp").forward(request, response);
 	}
 
 	/**

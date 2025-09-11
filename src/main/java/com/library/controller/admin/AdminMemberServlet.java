@@ -42,7 +42,7 @@ public class AdminMemberServlet extends HttpServlet {
             System.out.println("회원 아이디: " + m.getMemberId());
         }
 
-        request.getRequestDispatcher("/admin/memberManage.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/admin/memberManage.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

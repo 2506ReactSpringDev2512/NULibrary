@@ -27,7 +27,7 @@ public class MyRentalsServlet extends HttpServlet {
         if (loginMember == null) {
             // 로그인하지 않은 경우
             request.setAttribute("errorMsg", "로그인이 필요합니다.");
-            request.getRequestDispatcher("/member/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(request, response);
             return;
         }
         
@@ -41,7 +41,7 @@ public class MyRentalsServlet extends HttpServlet {
         request.setAttribute("loginMember", loginMember); // 로그인 회원 정보 전달
         
         // JSP로 포워드
-        request.getRequestDispatcher("/member/myRentals.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/member/myRentals.jsp").forward(request, response);
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 

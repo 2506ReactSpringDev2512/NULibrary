@@ -56,7 +56,7 @@ public class MainBookListServlet extends HttpServlet {
         request.setAttribute("rentedBookCount", rentedBookCount);
         request.setAttribute("totalMemberCount", totalMemberCount);
 
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/main/main.jsp").forward(request, response);
 	}
 
 	/**

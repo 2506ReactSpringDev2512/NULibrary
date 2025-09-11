@@ -51,12 +51,12 @@ public class AdminNoticeServlet extends HttpServlet {
             request.setAttribute("noticeList", noticeList);
             
             // 관리자용 공지사항 관리 페이지로 포워드
-            request.getRequestDispatcher("/admin/adminNotice.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/admin/adminNotice.jsp").forward(request, response);
             
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMsg", "공지사항 목록 조회 중 오류가 발생했습니다.");
-            request.getRequestDispatcher("/admin/adminNotice.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/admin/adminNotice.jsp").forward(request, response);
         }
     }
 

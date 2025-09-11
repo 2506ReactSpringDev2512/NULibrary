@@ -34,7 +34,7 @@ public class JoinServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/member/join.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/member/join.jsp").forward(request, response);
 	}
 
 	/**

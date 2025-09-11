@@ -27,7 +27,7 @@ public class AdminBookServlet extends HttpServlet {
         if (loginMember == null || !"Y".equals(loginMember.getAdminYn())) {
             // 관리자가 아닌 경우
             request.setAttribute("errorMsg", "관리자 권한이 필요합니다.");
-            response.sendRedirect(request.getContextPath() + "/admin/adminLogin.jsp");
+            response.sendRedirect(request.getContextPath() + "/admin/login");
             return;
         }
         
@@ -60,7 +60,7 @@ public class AdminBookServlet extends HttpServlet {
         request.setAttribute("keyword", keyword);
         
         // JSP로 포워드
-        request.getRequestDispatcher("/admin/bookManage.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/admin/bookManage.jsp").forward(request, response);
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 

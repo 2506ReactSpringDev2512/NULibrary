@@ -31,7 +31,7 @@ public class AdminLoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 관리자 로그인 페이지로 포워드
-		request.getRequestDispatcher("/admin/adminLogin.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/admin/adminLogin.jsp").forward(request, response);
 	}
 
 	/**

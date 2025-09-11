@@ -25,7 +25,7 @@ public class ReturnBookServlet extends HttpServlet {
         if (loginMember == null) {
             // 로그인하지 않은 경우
             request.setAttribute("errorMsg", "로그인이 필요합니다.");
-            request.getRequestDispatcher("/member/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(request, response);
             return;
         }
         
