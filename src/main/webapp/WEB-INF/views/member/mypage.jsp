@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:if test="${empty loginUser or empty loginUserVO}">
-    <c:redirect url="/index.jsp" />
+    <c:redirect url="/main" />
 </c:if>
 <!DOCTYPE html>
 <html lang="ko">

@@ -447,7 +447,7 @@
                                     </c:when>
                                     <c:otherwise>
                                         <button class="btn btn-primary"
-                                                onclick="alert('로그인이 필요합니다.'); location.href='${pageContext.request.contextPath}/member/login.jsp';">
+                                                onclick="alert('로그인이 필요합니다.'); location.href='${pageContext.request.contextPath}/member/login';">
                                             <i class="fas fa-sign-in-alt"></i>로그인
                                         </button>
                                     </c:otherwise>
