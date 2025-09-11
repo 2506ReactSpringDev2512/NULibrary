@@ -8,6 +8,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
+import com.library.model.service.BookService;
+import com.library.model.service.MemberService;
+
 /**
  * Servlet implementation class AdminMainServlet
  */
@@ -20,7 +23,6 @@ public class AdminMainServlet extends HttpServlet {
      */
     public AdminMainServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -36,6 +38,20 @@ public class AdminMainServlet extends HttpServlet {
 			return;
 		}
 		
+		MemberService memberService = new MemberService();
+        BookService bookService = new BookService();
+
+        int totalMemberCount = memberService.getTotalMemberCount();// 총 회원수
+        int totalBookCount = bookService.getTotalBookCount();// 총 도서 수
+        int rentedBookCount = bookService.getRentedBookCount();// 대여중인 도서 
+        int availableBookCount = bookService.getAvailableBookCount(); // 대여 가능 도ㅓㅅ
+
+        // JSP로 넘기기
+        request.setAttribute("totalMemberCount", totalMemberCount);
+        request.setAttribute("totalBookCount", totalBookCount);
+        request.setAttribute("rentedBookCount", rentedBookCount);
+        request.setAttribute("availableBookCount", availableBookCount);
+
 		// 관리자 메인 페이지로 포워드
 		request.getRequestDispatcher("/admin/adminMain.jsp").forward(request, response);
 	}

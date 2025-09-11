@@ -46,20 +46,20 @@
             <div class="content">
                 <div class="stats-grid">
                     <div class="stat-box">
-                        <div class="stat-number">1,456</div>
+                        <div class="stat-number">${totalMemberCount}명</div>
                         <div class="stat-label">총 회원수</div>
                     </div>
                     <div class="stat-box">
-                        <div class="stat-number">12,543</div>
+                        <div class="stat-number">${totalBookCount}권</div>
                         <div class="stat-label">총 도서수</div>
                     </div>
                     <div class="stat-box">
-                        <div class="stat-number">2,722</div>
+                        <div class="stat-number">${rentedBookCount}권</div>
                         <div class="stat-label">대여중인 도서</div>
                     </div>
                     <div class="stat-box">
-                        <div class="stat-number">15</div>
-                        <div class="stat-label">연체 도서</div>
+                        <div class="stat-number">${availableBookCount}권</div>
+                        <div class="stat-label">대여 가능</div>
                     </div>
                 </div>
             </div>
