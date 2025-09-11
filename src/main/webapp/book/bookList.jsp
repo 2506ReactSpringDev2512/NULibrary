@@ -14,30 +14,29 @@
     body { background-color: #ffffff; }
     .container { width: 100%; margin: 0; background-color: #ffffff; min-height: 100vh; }
     
-    /* 기존 CSS 리셋 */
-    .page-content * {
-        box-sizing: border-box;
-    }
-    .book-list {
-        display: block !important;
-    }
     .page-content { 
         padding: 40px 60px; 
         max-width: 1200px; 
         margin: 0 auto; 
         min-height: calc(100vh - 400px);
     }
+    
     .page-title { 
         text-align: center; 
         margin: 30px 0; 
         font-size: 28px; 
         font-weight: 600; 
         color: #2c5282; 
+        padding: 20px 0;
+        border-bottom: 3px solid #2c5282;
     }
+    
     .category-links { 
         text-align: center; 
         margin-bottom: 30px; 
+        padding: 20px 0;
     }
+    
     .category-links a { 
         text-decoration: none; 
         color: #2c5282; 
@@ -49,12 +48,15 @@
         transition: all 0.3s ease;
         font-weight: 500;
         display: inline-block;
+        margin-bottom: 10px;
     }
+    
     .category-links a:hover {
         background-color: #2c5282;
         color: white;
         transform: translateY(-2px);
     }
+    
     .result-info { 
         border: 2px solid #2c5282; 
         padding: 20px; 
@@ -66,6 +68,7 @@
         border-radius: 8px;
         font-size: 18px;
     }
+    
     .book-list { 
         border: 1px solid #e9ecef; 
         padding: 30px; 
@@ -73,76 +76,184 @@
         background-color: white; 
         box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
+    
+    .book-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 25px;
+        width: 100%;
+    }
+    
     .book-item { 
         border: 2px solid #e9ecef; 
-        padding: 25px; 
-        margin-bottom: 20px; 
+        padding: 20px; 
         cursor: pointer;
         border-radius: 12px;
         transition: all 0.3s ease;
         background-color: white;
         box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         width: 100%;
-        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        height: 420px;
     }
+    
     .book-item:hover {
         box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         transform: translateY(-3px);
         border-color: #2c5282;
         background-color: #fafbfc;
     }
+    
     .book-image { 
         border: 1px solid #e9ecef; 
-        width: 120px; 
-        height: 140px; 
+        width: 140px; 
+        height: 180px; 
         background-color: #f8f9fa;
         border-radius: 8px;
         overflow: hidden;
-        float: left;
-        margin-right: 25px;
+        flex-shrink: 0;
     }
+    
     .book-image img {
-        width: 120px; 
-        height: 140px; 
+        width: 100%; 
+        height: 100%; 
         object-fit: cover;
         display: block;
     }
+    
     .book-info { 
-        overflow: hidden;
-        padding-left: 0;
-    }
-    .book-title { 
-        font-weight: 600; 
-        font-size: 18px; 
-        margin-bottom: 15px; 
-        color: #2c5282;
-        padding: 0 0 10px 0;
-        border-bottom: 2px solid #e9ecef;
-        line-height: 1.4;
-    }
-    .book-details {
-        flex: 1;
+        width: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
-        gap: 6px;
+        gap: 10px;
+        text-align: center;
+        flex: 1;
+        overflow: hidden;
     }
+    
+    .book-title { 
+        font-weight: 600; 
+        font-size: 15px; 
+        color: #2c5282;
+        padding: 0 0 8px 0;
+        border-bottom: 2px solid #e9ecef;
+        line-height: 1.3;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        height: 40px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        margin-bottom: 5px;
+    }
+    
+    .book-details {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        font-size: 12px;
+        flex: 1;
+        justify-content: flex-start;
+    }
+    
     .book-detail-item { 
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        font-size: 14px;
-        line-height: 1.5;
+        line-height: 1.4;
+        width: 100%;
     }
+    
     .book-detail-item .label {
         color: #2c5282;
         font-weight: 600;
-        min-width: 70px;
+        min-width: 60px;
         flex-shrink: 0;
     }
+    
     .book-detail-item .value {
         color: #333;
-        margin-left: 8px;
         flex: 1;
+        text-align: right;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        line-height: 1.3;
+        max-width: 150px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    
+    /* 반응형 디자인 */
+    @media (max-width: 1200px) {
+        .book-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .page-content {
+            padding: 20px 15px;
+        }
+        
+        .book-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .book-item {
+            height: 320px;
+        }
+        
+        .book-image {
+            height: 160px;
+        }
+        
+        .category-links a {
+            display: block;
+            margin: 5px auto;
+            max-width: 200px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .page-title {
+            font-size: 22px;
+        }
+        
+        .result-info {
+            font-size: 16px;
+            padding: 15px;
+        }
+        
+        .book-list {
+            padding: 15px;
+        }
+        
+        .book-grid {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        
+        .book-item {
+            height: 300px;
+        }
+        
+        .book-image {
+            height: 150px;
+        }
+        
+        .book-title {
+            font-size: 14px;
+        }
+        
+        .book-detail-item {
+            font-size: 12px;
+        }
     }
 </style>
 </head>
@@ -175,53 +286,55 @@
 
         <!-- 도서 리스트 -->
         <div class="result-info">
-        <c:choose>
-            <c:when test="${empty bookList}">
-                등록된 도서가 없습니다.
-            </c:when>
-            <c:otherwise>
-                <c:choose>
-                    <c:when test="${not empty selectedCategory}">
-                        ${selectedCategory} : 총 ${fn:length(bookList)}권
-                    </c:when>
-                    <c:otherwise>
-                        전체 도서 : 총 ${fn:length(bookList)}권
-                    </c:otherwise>
-                </c:choose>
-            </c:otherwise>
-        </c:choose>
-    </div>
+            <c:choose>
+                <c:when test="${empty bookList}">
+                    등록된 도서가 없습니다.
+                </c:when>
+                <c:otherwise>
+                    <c:choose>
+                        <c:when test="${not empty selectedCategory}">
+                            ${selectedCategory} : 총 ${fn:length(bookList)}권
+                        </c:when>
+                        <c:otherwise>
+                            전체 도서 : 총 ${fn:length(bookList)}권
+                        </c:otherwise>
+                    </c:choose>
+                </c:otherwise>
+            </c:choose>
+        </div>
 
         <div class="book-list">
-            <c:forEach var="book" items="${bookList}">
-                <div class="book-item" onclick="location.href='${pageContext.request.contextPath}/book/detail?bookNo=${book.bookNo}'">
-                    <div class="book-image">
-                        <img src="${pageContext.request.contextPath}/image/book/all/${book.bookNo}.jpg" 
-                             alt="${book.bookName}">
-                    </div>
-                    <div class="book-info">
-                        <div class="book-title">${book.bookName}</div>
-                        <div class="book-details">
-                            <div class="book-detail-item">
-                                <span class="label">저자:</span>
-                                <span class="value">${book.bookAuthor}</span>
-                            </div>
-                            <div class="book-detail-item">
-                                <span class="label">출판사:</span>
-                                <span class="value">${book.bookPublisher}</span>
-                            </div>
-                            <div class="book-detail-item">
-                                <span class="label">카테고리:</span>
-                                <span class="value">${book.bookCategory}</span>
-                            </div>
-                            <div class="book-detail-item">
-                                <span class="label">도서번호:</span>
-                                <span class="value">${book.bookNo}</span>
+            <div class="book-grid">
+                <c:forEach var="book" items="${bookList}">
+                    <div class="book-item" onclick="location.href='${pageContext.request.contextPath}/book/detail?bookNo=${book.bookNo}'">
+                        <div class="book-image">
+                            <img src="${pageContext.request.contextPath}/image/book/all/${book.bookNo}.jpg" 
+                                 alt="${book.bookName}">
+                        </div>
+                        <div class="book-info">
+                            <div class="book-title">${book.bookName}</div>
+                            <div class="book-details">
+                                <div class="book-detail-item">
+                                    <span class="label">저자:</span>
+                                    <span class="value">${book.bookAuthor}</span>
+                                </div>
+                                <div class="book-detail-item">
+                                    <span class="label">출판사:</span>
+                                    <span class="value">${book.bookPublisher}</span>
+                                </div>
+                                <div class="book-detail-item">
+                                    <span class="label">카테고리:</span>
+                                    <span class="value">${book.bookCategory}</span>
+                                </div>
+                                <div class="book-detail-item">
+                                    <span class="label">도서번호:</span>
+                                    <span class="value">${book.bookNo}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </c:forEach>
+                </c:forEach>
+            </div>
         </div>
     </div>
     
