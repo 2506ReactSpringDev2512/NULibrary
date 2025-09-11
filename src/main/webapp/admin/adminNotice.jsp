@@ -43,12 +43,19 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #fff;
+        .logo { 
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
+        .logo img { height: 60px; width: 100px; border: none; outline: none; }
+        .logo-text { display: flex; flex-direction: column; }
+        .logo-title { font-size: 18px; font-weight: bold; color: #fff; }
+        .logo-subtitle { font-size: 14px; color: #ccc; }
 
         .nav-menu {
             display: flex;
@@ -197,7 +204,14 @@
     <div class="container">
         <!-- 헤더 -->
         <div class="header">
-            <div class="logo" onclick="location.href='${pageContext.request.contextPath}/admin/main'">관리자 시스템</div>
+            <!-- 로고 -->
+            <div class="logo" onclick="location.href='${pageContext.request.contextPath}/main'">
+                <img src="${pageContext.request.contextPath}/image/logo.png" alt="도서관 로고">
+                <div class="logo-text">
+                    <div class="logo-title">NU 대학교 중앙도서관</div>
+                    <div class="logo-subtitle">관리자 시스템</div>
+                </div>
+            </div>
             <div class="nav-menu">
                 <div onclick="location.href='${pageContext.request.contextPath}/notice/list'">일반 공지사항</div>
                 <div onclick="location.href='${pageContext.request.contextPath}/admin/main'">관리자 홈</div>
