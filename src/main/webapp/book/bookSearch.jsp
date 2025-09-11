@@ -133,19 +133,13 @@
         }
         
         .book-item {
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            padding: 25px;
-            margin-bottom: 20px;
-            display: flex;
-            gap: 25px;
-            border: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            min-height: 200px;
-            align-items: flex-start;
-        }
+		    display: flex;
+		    flex-direction: row; /* 옆으로 배치 */
+		    align-items: flex-start;
+		    justify-content: flex-start;
+		    gap: 20px;
+		    flex-wrap: nowrap; /* 줄바꿈 방지 */
+		}
         
         .book-item:hover {
             transform: translateY(-3px);
@@ -172,15 +166,13 @@
         }
         
         .book-info {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            min-height: 150px;
-            justify-content: flex-start;
-            min-width: 0;
-            overflow: hidden;
-        }
+		    flex: 1;
+		    display: flex;
+		    flex-direction: column;
+		    gap: 10px;
+		    min-width: 0; /* flex 아이템이 부모 영역을 벗어나지 않도록 */
+		    word-break: break-word; /* 긴 단어도 줄바꿈 */
+		}
         
         .book-title {
             font-weight: 700;
@@ -200,44 +192,51 @@
         }
         
         .book-details {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin: 0;
-            flex: 1;
-            overflow: hidden;
-        }
+		    display: flex;
+		    flex-direction: column;
+		    gap: 6px;
+		    margin: 0;
+		}
         
         .book-details div {
-            display: flex;
-            align-items: center;
-            margin: 0;
-            padding: 4px 0;
-            border: none;
-            border-bottom: 1px solid #e2e8f0;
-            font-size: 13px;
-            min-height: 28px;
-            white-space: nowrap;
-            overflow: hidden;
-        }
+		    display: flex;
+		    align-items: center;       /* 수직 가운데 정렬 */
+		    gap: 10px;                 /* strong과 span 사이 간격 */
+		    padding: 6px 0;
+		    border-bottom: 1px solid #e2e8f0;
+		    min-height: 32px;
+		    line-height: 1.2;
+		    overflow: hidden;
+		}
         
         .book-details div:last-child {
             border-bottom: none;
         }
         
         .book-details strong {
-            color: #2c5282;
-            min-width: 70px;
-            font-weight: 600;
-            flex-shrink: 0;
-        }
+		    display: flex;
+		    align-items: center;       /* 아이콘과 라벨 텍스트 중앙 정렬 */
+		    gap: 8px;
+		    min-width: 80px;           /* 라벨 너비 고정(정렬 기준) */
+		    flex-shrink: 0;
+		    font-weight: 600;
+		    color: #2c5282;
+		    line-height: 1;
+		}
+		
+		.book-details strong i {
+		    display: inline-flex;
+		    align-items: center;
+		    justify-content: center;
+		    vertical-align: middle;
+		}
         
         .book-details span {
-            flex: 1;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+		    flex: 1;
+		    white-space: nowrap;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		}
         
         .no-results {
             text-align: center;
