@@ -31,13 +31,33 @@ public class AdminBookServlet extends HttpServlet {
             return;
         }
         
+        //조회 타입 확인
+        String type = request.getParameter("type");
+        String keyword = request.getParameter("keyword");
+        
+        if(keyword == null) keyword = "";
+        
         // 전체 도서 목록 조회
         BookService bookService = new BookService();
-        List<BookVO> bookList = bookService.selectAllList();
+        List<BookVO> bookList = null;
+        String pageTitle;
+        
+        if(!keyword.isBlank()) {
+        	//검색 결과 조회
+        	bookList = bookService.searchBooks(keyword, "all");
+        	pageTitle = "검색 결과";
+        }else {
+        	// 전체 도서 출력
+        	bookList = bookService.selectAllList();
+        	pageTitle = "전체 도서 관리";
+        }
         
         // 결과를 request에 저장
         request.setAttribute("bookList", bookList);
         request.setAttribute("bookCount", bookList.size());
+        request.setAttribute("pageTitle", pageTitle);
+        request.setAttribute("type", type);
+        request.setAttribute("keyword", keyword);
         
         // JSP로 포워드
         request.getRequestDispatcher("/admin/bookManage.jsp").forward(request, response);

@@ -211,10 +211,22 @@
                 <div class="book-info">
                     <div class="book-title">${book.bookName}</div>
                     <table class="info-table">
-                        <tr><th>저자</th><td>${book.bookAuthor}</td></tr>
-                        <tr><th>출판사</th><td>${book.bookPublisher}</td></tr>
-                        <tr><th>도서 번호</th><td>${book.bookNo}</td></tr>
-                        <tr><th>카테고리</th><td>${book.bookCategory}</td></tr>
+                        <tr>
+	                        <th>저자</th>
+	                        <td>${book.bookAuthor}</td>
+                        </tr>
+                        <tr>
+	                        <th>출판사</th>
+	                        <td>${book.bookPublisher}</td>
+                        </tr>
+                        <tr>
+	                        <th>도서 번호</th>
+	                        <td>${book.bookNo}</td>
+                        </tr>
+                        <tr>
+	                        <th>카테고리</th>
+	                        <td>${book.bookCategory}</td>
+                        </tr>
                     </table>
                 </div>
                 

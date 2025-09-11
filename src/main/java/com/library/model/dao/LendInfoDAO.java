@@ -261,4 +261,47 @@ public class LendInfoDAO {
         }
         return result;
     }
+ // 관리자 내 도서 대여 정보 검색
+    public List<LendInfoVO> searchLendInfo(Connection conn, String keyword){
+    	List<LendInfoVO> lendInfoList = new ArrayList<>();
+    	PreparedStatement pstmt = null;
+    	ResultSet rs = null;
+    	
+    	// 통합검색 쿼리(아이디, 도서명)
+    	  String sql = "SELECT l.M_ID, l.BOOK_NO, l.LEND_DATE, l.RETURN_DATE, "
+                  + "m.MEMBER_NAME, b.BOOK_NAME, b.LEND_YN "
+                  + "FROM LENDINFO_TBL l "
+                  + "JOIN MEMBER_TBL m ON l.M_ID = m.MEMBER_ID "
+                  + "JOIN BOOK_TBL b ON l.BOOK_NO = b.BOOK_NO "
+                  + "WHERE m.MEMBER_NAME LIKE ? OR b.BOOK_NAME LIKE ? "
+                  + "ORDER BY l.LEND_DATE DESC";
+
+       try {
+           pstmt = conn.prepareStatement(sql);
+           String searchKeyword = "%" + (keyword == null ? "" : keyword.trim()) + "%";
+           pstmt.setString(1, searchKeyword);
+           pstmt.setString(2, searchKeyword);
+
+           rs = pstmt.executeQuery();
+           while (rs.next()) {
+               LendInfoVO lendInfo = new LendInfoVO();
+               lendInfo.setMId(rs.getString("M_ID"));
+               lendInfo.setBookNo(rs.getString("BOOK_NO"));
+               lendInfo.setLendDate(rs.getDate("LEND_DATE"));
+               lendInfo.setReturnDate(rs.getDate("RETURN_DATE"));
+               lendInfo.setMemberName(rs.getString("MEMBER_NAME"));
+               lendInfo.setBookName(rs.getString("BOOK_NAME"));
+
+               lendInfoList.add(lendInfo);
+           }
+           System.out.println("✅ 대여 내역 검색 완료 (" + keyword + "): " + lendInfoList.size() + "건");
+       } catch (SQLException e) {
+           System.err.println("대여 내역 검색 쿼리 실행 중 오류: " + e.getMessage());
+           e.printStackTrace();
+       } finally {
+           JDBCTemplate.close(rs);
+           JDBCTemplate.close(pstmt);
+       }
+       return lendInfoList;
+   }
 }
