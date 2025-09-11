@@ -349,4 +349,25 @@ public class MemberDAO {
         }
         return memberList;
     }
+    
+    // 전체 회원 수 조회
+    public int getTotalMemberCount(Connection conn) {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int count = 0;
+        try {
+            String sql = "SELECT COUNT(*) FROM MEMBER_TBL";
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            if(rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        } finally {
+            JDBCTemplate.close(rs);
+            JDBCTemplate.close(pstmt);
+        }
+        return count;
+    }
 }

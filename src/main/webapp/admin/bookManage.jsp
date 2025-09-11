@@ -41,7 +41,7 @@
             
             <div class="content">
                 <div class="top-actions">
-	              <form action="${pageContext.request.contextPath}/admin/bookManage" method="get">
+                    <form action="${pageContext.request.contextPath}/admin/bookManage" method="get">
 	                    <div>
 	                        <input type="text" class="search-input" name="keyword" value="${keyword}" placeholder="검색어를 입력해주세요.">
 	                        <button class="btn">검색</button>

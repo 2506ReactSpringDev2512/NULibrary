@@ -138,5 +138,4 @@ public class LendInfoService {
     	JDBCTemplate.close(conn);
     	return lendInfoList;
     }
-    
 }

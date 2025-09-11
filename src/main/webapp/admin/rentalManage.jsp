@@ -51,7 +51,7 @@
             
             <div class="content">
                 <div class="search-box">
-                	<form action="${pageContext.request.contextPath}/admin/rentalManage" method="get">
+                    <form action="${pageContext.request.contextPath}/admin/rentalManage" method="get">
 	                    <input type="text" name="keyword" class="search-input" value="${keyword}"placeholder="회원명 또는 도서명 검색">
 	                    <button class="search-btn">검색</button>
                     </form>

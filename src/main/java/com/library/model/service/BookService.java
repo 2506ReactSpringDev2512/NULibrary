@@ -54,14 +54,6 @@ public class BookService {
         return bookList;
     }
     
-    // 도서 상세정보 출력
-    public BookVO getBookDetail(String bookNo) {
-        Connection conn = JDBCTemplate.getConnection();
-        BookVO book = bookDAO.selectBookByNo(conn, bookNo);
-        JDBCTemplate.close(conn);
-        return book;
-    }
-
     
     // 도서 소개 수정
     public boolean updateBookDescription(String bookNo, String description) {
@@ -87,5 +79,37 @@ public class BookService {
         }
         
         return result;
+    }
+    
+    // 도서 상세정보 출력
+    public BookVO getBookDetail(String bookNo) {
+        Connection conn = JDBCTemplate.getConnection();
+        BookVO book = bookDAO.selectBookByNo(conn, bookNo);
+        JDBCTemplate.close(conn);
+        return book;
+    }
+    
+    // 전체 도서 수 조회
+    public int getTotalBookCount() {
+        Connection conn = JDBCTemplate.getConnection();
+        int count = bookDAO.getTotalBookCount(conn);
+        JDBCTemplate.close(conn);
+        return count;
+    }
+    
+    // 대여 가능한 도서 수 조회
+    public int getAvailableBookCount() {
+        Connection conn = JDBCTemplate.getConnection();
+        int count = bookDAO.getAvailableBookCount(conn);
+        JDBCTemplate.close(conn);
+        return count;
+    }
+    
+    // 대여 중인 도서 수 조회
+    public int getRentedBookCount() {
+        Connection conn = JDBCTemplate.getConnection();
+        int count = bookDAO.getRentedBookCount(conn);
+        JDBCTemplate.close(conn);
+        return count;
     }
 }

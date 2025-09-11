@@ -144,13 +144,12 @@
                 <div onclick="location.href='${pageContext.request.contextPath}/main'">홈으로</div>
             </div>
         </div>
-        
         <!-- 회원가입 메인 영역 -->
         <div class="main-content">
-            <div class="form-container">
+        	<div class="form-container">
             <div class="page-title">회원가입</div>
             
-            <!-- 에러 메세지 출력 -->
+            		<!-- 에러 메세지 출력 -->
             <c:if test="${not empty errorMsg}">
                     <div class="error-message">
                         ${errorMsg}

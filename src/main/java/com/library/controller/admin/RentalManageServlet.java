@@ -30,8 +30,7 @@ public class RentalManageServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/admin/adminLogin.jsp");
             return;
         }
-
-        // 조회 타입 확인
+        // 조회 타입 확인 
         String type = request.getParameter("type");
         String keyword = request.getParameter("keyword");
         
@@ -50,7 +49,7 @@ public class RentalManageServlet extends HttpServlet {
             rentalList = lendService.searchLendInfo(keyword, "all");
             pageTitle = "검색 결과";
         } else {
-        	// 전체대여 목록 조회
+            // 전체대여 목록 조회
             rentalList = lendService.getAllLendList();
         }
         
@@ -60,12 +59,12 @@ public class RentalManageServlet extends HttpServlet {
         request.setAttribute("pageTitle", pageTitle);
         request.setAttribute("type", type);
         request.setAttribute("keyword", keyword);
-
-        // JSP로 포워드 
+        
+        // JSP로 포워드
         request.getRequestDispatcher("/admin/rentalManage.jsp").forward(request, response);
     }
 
-    // doPost (반납 처리)
+    // dopost (반납처리)
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
     	// 관리자 권한 확인

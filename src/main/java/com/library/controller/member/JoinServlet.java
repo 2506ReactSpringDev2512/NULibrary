@@ -42,7 +42,7 @@ public class JoinServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		// 1. 클라이언트에서 넘어온 값 받기
+		 // 1. 클라이언트에서 넘어온 값 받기
 	    String memberId = request.getParameter("memberId");
 	    String memberPw = request.getParameter("memberPw");
 	    String memberPwConfirm = request.getParameter("memberPwConfirm");
@@ -84,11 +84,9 @@ public class JoinServlet extends HttpServlet {
 	    member.setMemberAge(memberAge);
 	    member.setAdminYn(adminYN);
 
-	    
 	    // 6. 회원가입 처리
 	    int result = mService.insertMember(member);
 
-	    // 7. 결과에 따라 메세지 출력 및 페이지 이동
 	    if(result > 0) {
 	    	session.setAttribute("successMsg", "회원가입이 완료되었습니다!");
 	    	response.sendRedirect(request.getContextPath() + "/main");

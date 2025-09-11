@@ -199,7 +199,7 @@
             </div>
         </div>
         
-      <div class="main-content">
+        <div class="main-content">
         <div class="book-detail-container">
             <div class="book-header">
                 <div class="book-image">
@@ -226,7 +226,7 @@
                         </tr>
                     </table>
                 </div>
-            </div>
+                </div>
             
             <div class="status-section">
                 <div class="status ${book.lendYn == '대여중' ? 'unavailable' : 'available'}">

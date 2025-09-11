@@ -88,5 +88,11 @@ public class MemberService {
         return memberList;
     }
     
-   
+    // 전체 회원 수 조회
+    public int getTotalMemberCount() {
+        Connection conn = JDBCTemplate.getConnection();
+        int count = memberDAO.getTotalMemberCount(conn);
+        JDBCTemplate.close(conn);
+        return count;
+    }
 }

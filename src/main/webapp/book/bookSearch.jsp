@@ -226,7 +226,7 @@
                     </c:when>
                     <c:otherwise>
                         <c:forEach var="book" items="${searchResults}">
-                             <div class="book-item" onclick="location.href='${pageContext.request.contextPath}/book/detail?bookNo=${book.bookNo}'" style="cursor:pointer;">
+                            <div class="book-item" onclick="location.href='${pageContext.request.contextPath}/book/detail?bookNo=${book.bookNo}'" style="cursor:pointer;">
                                 <div class="book-image">
                                     <img src="${pageContext.request.contextPath}/image/book/all/${book.bookNo}.jpg" 
                                          alt="${book.bookName}" style="width: 100px; height: 120px; object-fit: cover;">
